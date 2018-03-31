@@ -23,7 +23,6 @@
         android:layout_marginTop="15sp"
         android:id="@+id/UserNameLogin"
         android:drawableStart="@drawable/icon"
-        android:text="asd"
         />
     <EditText
         android:layout_width="200sp"
