@@ -112,7 +112,7 @@
                 android:paddingStart="15dp"
                 android:textSize="16sp" />
 
-            <Button
+            <Spinner
                 android:id="@+id/signup_trainer_trainee"
                 android:layout_width="135dp"
                 android:layout_height="40dp"

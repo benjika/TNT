@@ -16,4 +16,10 @@
     <string name="phone_Number">Phone number</string>
     <string name="done">Done</string>
 
+    <string-array name="choose_trainer_trainee">
+        <item>Trainer/Trainee</item>
+        <item>Trainer</item>
+        <item>Trainee</item>
+    </string-array>
+
 </resources>
