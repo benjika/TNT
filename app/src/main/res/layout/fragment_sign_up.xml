@@ -8,25 +8,145 @@
     android:gravity="center_horizontal"
     tools:context=".SignUpFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/logo"
+            android:id="@+id/signup_logo"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/trainers_logo" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/run" />
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/signup_firstName"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_edittext_light"
+                    android:hint="@string/first_Name"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp" />
+
+                <EditText
+                    android:id="@+id/signup_lastName"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_edittext_light"
+                    android:hint="@string/last_Name"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp" />
+
+                <Button
+                    android:id="@+id/signup_date_of_birth"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_edittext_light"
+                    android:gravity="center_vertical"
+                    android:hint="@string/date_of_birth"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp">
+
+                <ImageButton
+                    android:id="@+id/signup_camera"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/camera_icon" />
+
+            </LinearLayout>
 
 
-    </RelativeLayout>
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/logo"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_edittext" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/signup_email"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext_light"
+            android:hint="@string/email"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/signup_phone"
+                android:layout_width="135dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/rounded_edittext_light"
+                android:hint="@string/phone_Number"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/signup_trainer_trainee"
+                android:layout_width="135dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/rounded_edittext_light"
+                android:gravity="center_vertical"
+                android:hint="@string/trainer_trainee"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/signup_city"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_edittext_light"
+            android:hint="@string/city"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_edittext_dark"
+            android:text="@string/done"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp" />
+
+
+    </LinearLayout>
+
 
 </FrameLayout>
