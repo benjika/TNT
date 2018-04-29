@@ -10,43 +10,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
-            android:background="@drawable/button_background_light">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="180dp"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_email" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_gravity="center"
+                android:textColorHint="@color/colorPrimary"
+                android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
-        <android.support.design.widget.TextInputLayout
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:background="@drawable/button_background_light"
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="180dp"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_key" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:hint="@string/password"
-                android:inputType="textEmailAddress"
+                android:orientation="horizontal"
+                android:textColorHint="@color/colorPrimary"
+                android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
-                android:textColorHint="@color/colorPrimary" />
-        </android.support.design.widget.TextInputLayout>
-
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
         <!--<CheckBox
            android:id="@+id/checkbox_meat"
            android:layout_width="wrap_content"
@@ -58,22 +89,24 @@
 
         <Button
             android:id="@+id/btn_sign_in"
-            android:layout_marginTop="10dp"
             android:layout_width="220dp"
             android:layout_height="50dp"
-            android:text="@string/sign_in"
             android:layout_gravity="center"
-            android:background="@drawable/button_background_dark" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background_dark"
+            android:text="@string/sign_in"
+            android:textColor="#FFFFFF"
+            android:textSize="17dp" />
 
         <Button
             android:id="@+id/btn_forgot_password"
-            android:layout_marginTop="20dp"
             android:layout_width="220dp"
             android:layout_height="50dp"
-            android:text="@string/forgot_password"
-            android:textColor="@color/colorPrimary"
             android:layout_gravity="center"
-            android:background="@android:color/transparent"  />
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="@string/forgot_password"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
 

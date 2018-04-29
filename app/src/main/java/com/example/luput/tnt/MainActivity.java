@@ -1,8 +1,8 @@
 package com.example.luput.tnt;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,9 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,31 +48,47 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
-
-        SigninLoginPagerAdapater adapter = new SigninLoginPagerAdapater(getSupportFragmentManager());
+        SigninLoginPagerAdapter adapter = new SigninLoginPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
+        pager.setCurrentItem(0);
 
-        pager.setCurrentItem(2);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(pager);
 
     }
 
-    private class SigninLoginPagerAdapater extends FragmentStatePagerAdapter {
+    private class SigninLoginPagerAdapter extends FragmentStatePagerAdapter {
 
         final int size = 2;
 
-        public SigninLoginPagerAdapater(FragmentManager fm) {
+        public SigninLoginPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return LoginFragment.newInstance();
+            if (position == 0)
+                return LoginFragment.newInstance();
+            else
+                return SignupFragment.newInstance();
         }
 
         @Override
         public int getCount() {
             return size;
             //return Countries.values().length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            String signin = getResources().getString(R.string.sign_in);
+            String signup = getResources().getString(R.string.sign_up);
+
+            if (position == 0)
+                return signin;
+            else
+                return signup;
         }
     }
 
