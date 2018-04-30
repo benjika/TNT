@@ -55,19 +55,3 @@
         app:menu="@menu/drawer_menu" />
 
 </android.support.v4.widget.DrawerLayout>
-
-    <!-- <fragment
-           android:id="@+id/logInFragment"
-           android:name="com.example.luput.tnt.LogInFragment"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-
-       </fragment>
-
-       <fragment
-           android:id="@+id/SignUpFragment"
-           android:name="com.example.luput.tnt.SignUpFragment"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-
-       </fragment> -->
