@@ -11,9 +11,7 @@
     <!--sign up fragment-->
     <string name="sign_up">Sign up</string>
     <string name="gender">Gender</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="im_a">I\'m a</string>
     <string name="first_Name">First name</string>
     <string name="last_Name">Last name</string>
     <string name="email">Email</string>
@@ -21,6 +19,8 @@
     <string name="city">City</string>
     <string name="id">ID</string>
     <string name="trainer_trainee">Trainer/Trainee</string>
+    <string name="trainer">Trainer</string>
+    <string name="trainee">Trainee</string>
     <string name="phone_Number">Phone number</string>
     <string name="done">Done</string>
 
