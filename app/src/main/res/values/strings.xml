@@ -36,4 +36,10 @@
         <item>Trainee</item>
     </string-array>
 
+    <string-array name="genders">
+        <item>Select gender</item>
+        <item>Man</item>
+        <item>Woman</item>
+    </string-array>
+
 </resources>

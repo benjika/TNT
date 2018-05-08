@@ -8,228 +8,229 @@
 
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/frame_redio"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="7dp"
-                android:text="@string/im_a"
-                android:textColor="@color/colorPrimary" />
-
-            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio_trainee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trainee"
-                    android:textColor="@color/colorPrimary" />
-
-                <RadioButton
-                    android:id="@+id/radio_trainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trainer"
-                    android:textColor="@color/colorPrimary" />
-            </RadioGroup>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="right"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/frame_radio"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp">
 
+                <TextView
 
-                <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorPrimary"
-                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                    android:paddingEnd="7dp"
+                    android:text="@string/im_a"
+                    android:textColor="@color/colorPrimary" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="160dp"
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/radio_trainerOrTrainee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_trainee"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:hint="@string/first_Name"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorPrimary" />
-                </android.support.design.widget.TextInputLayout>
+                        android:text="@string/trainee"
+                        android:textColor="@color/colorPrimary" />
 
-                <android.support.design.widget.TextInputLayout
+                    <RadioButton
+                        android:id="@+id/radio_trainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trainer"
+                        android:textColor="@color/colorPrimary" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary"
+                        android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/signup_firstName"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:hint="@string/first_Name"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/primary_text"
+                            android:textColorHint="@color/primary_text" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:orientation="horizontal"
+                        android:textColorHint="@color/colorPrimary"
+                        android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/signup_lastName"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:hint="@string/last_Name"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/primary_text"
+                            android:textColorHint="@color/primary_text" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Spinner
+                        android:id="@+id/signup_gender_spinner"
+                        android:layout_width="161dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="start" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:src="@drawable/profile_pic" />
 
-                    android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
-                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:hint="@string/last_Name"
-                        android:inputType="textEmailAddress"
-                        android:textColorHint="@color/colorPrimary" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-
-                    android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
-                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:hint="@string/gender"
-                        android:inputType="textEmailAddress"
-                        android:textColorHint="@color/colorPrimary" />
-                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
-            <ImageButton
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:background="@color/colorAccent"
-                android:src="@drawable/profile_pic" />
 
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:textColorHint="@color/colorPrimary"
-                android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="160dp"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@color/colorPrimary" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:textColorHint="@color/colorPrimary"
-                android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:hint="@string/phone_Number"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@color/colorPrimary" />
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:textColorHint="@color/colorPrimary">
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:hint="@string/date_of_birth"
-                    android:inputType="textEmailAddress"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
                     android:textColorHint="@color/colorPrimary"
-                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout" />
-            </android.support.design.widget.TextInputLayout>
+                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:textColorHint="@color/colorPrimary"
-                android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signup_email"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/colorPrimary" />
+                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="160dp"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:hint="@string/city"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@color/colorPrimary" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:textColorHint="@color/colorPrimary"
+                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signup_phone"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:hint="@string/phone_Number"
+                        android:inputType="phone"
+                        android:textColorHint="@color/colorPrimary" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:textColorHint="@color/colorPrimary">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signup_dateOfBith"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:hint="@string/date_of_birth"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/colorPrimary"
+                        android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:textColorHint="@color/colorPrimary"
+                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signup_city"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:hint="@string/city"
+                        android:inputType="text"
+                        android:textColorHint="@android:color/black" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_background_dark"
+                android:text="@string/sign_up"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_sign_up"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/button_background_dark"
-            android:text="@string/sign_up"
-            android:textColor="#FFFFFF"
-            android:textSize="17sp" />
-
-
-    </LinearLayout>
-
-
+    </ScrollView>
 </FrameLayout>
