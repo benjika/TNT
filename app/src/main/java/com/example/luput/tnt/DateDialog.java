@@ -1,5 +1,6 @@
 package com.example.luput.tnt;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -24,7 +25,7 @@ public class DateDialog extends DialogFragment {
         int year = calendar.get(Calendar.YEAR) - 25;
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(),
+        return new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,
                 (DatePickerDialog.OnDateSetListener) SignupFragment.newInstance(), year, month, day);
     }
 

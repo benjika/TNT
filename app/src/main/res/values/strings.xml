@@ -36,8 +36,9 @@
         <item>Trainee</item>
     </string-array>
 
+    <string name="select_gender">Select gender</string>
+    <string name="cancel">Cancel</string>
     <string-array name="genders">
-        <item>Select gender</item>
         <item>Man</item>
         <item>Woman</item>
     </string-array>
