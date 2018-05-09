@@ -89,7 +89,7 @@ public class SignupFragment extends Fragment
         etGender = (EditText) view.findViewById(R.id.signup_gender);
         ibPhoto = (ImageButton) view.findViewById(R.id.signup_ibPhoto);
         btnTakePhoto = (Button) view.findViewById(R.id.signup_btnTakePhoto);
-        etEmail = (EditText) view.findViewById(R.id.signup_email);
+        //etEmail = (EditText) view.findViewById(R.id.signup_email);
         etPhone = (EditText) view.findViewById(R.id.signup_phone);
         etDateOfbirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
         etCity = (EditText) view.findViewById(R.id.signup_city);
@@ -156,8 +156,12 @@ public class SignupFragment extends Fragment
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
+        month++;
 
-        dateOfBirth.setText(day + "/" + (month + 1) + "/" + year);
+        String day_s = day > 9 ? "" + day : "0" + day;
+        String month_s = month > 9 ? "" + month : "0" + month;
+
+        dateOfBirth.setText(day_s + "/" + month_s + "/" + year);
     }
 
     @Override
