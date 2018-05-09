@@ -1,31 +1,38 @@
 package com.example.luput.tnt;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.ResourceBundle;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 
 /**
@@ -44,17 +51,19 @@ public class SignupFragment extends Fragment
     private static EditText etPhone;
     private static EditText etCity;
     private static EditText etDateOfbirth;
-    private static Spinner spinnerGender;
     private static EditText etGender;
+    private static ImageButton ibPhoto;
+    private static Button btnTakePhoto;
     private static String[] Genders;
     private static ArrayAdapter<CharSequence> genderAdapter;
     private static int DateOfbirth_day;
     private static int DateOfbirth_month;
     private static int DateOfbirth_year;
-    private static ImageButton profilePic;
+
     private static Button btnSignUp;
     private static RadioGroup radioTrainerOrTrainee;
     static View view;
+    private static Integer REQUEST_CAMERA = 0, REQUEST_STORAGE = 1;
 
 
     public SignupFragment() {
@@ -78,12 +87,8 @@ public class SignupFragment extends Fragment
         etFirstName = (EditText) view.findViewById(R.id.signup_firstName);
         etLastName = (EditText) view.findViewById(R.id.signup_lastName);
         etGender = (EditText) view.findViewById(R.id.signup_gender);
-        //       spinnerGender = (Spinner) view.findViewById(R.id.signup_gender_spinner);
-//        genderAdapter = ArrayAdapter.createFromResource(getActivity(),
-//                R.array.genders, android.R.layout.simple_spinner_item);
-//        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerGender.setAdapter(genderAdapter);
-        // ((TextView) spinnerGender.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorPrimary));
+        ibPhoto = (ImageButton) view.findViewById(R.id.signup_ibPhoto);
+        btnTakePhoto = (Button) view.findViewById(R.id.signup_btnTakePhoto);
         etEmail = (EditText) view.findViewById(R.id.signup_email);
         etPhone = (EditText) view.findViewById(R.id.signup_phone);
         etDateOfbirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
@@ -92,11 +97,10 @@ public class SignupFragment extends Fragment
         etDateOfbirth.setOnFocusChangeListener(this);
         etGender.setOnFocusChangeListener(this);
 
+        ibPhoto.setOnClickListener(this);
+        btnTakePhoto.setOnClickListener(this);
+
         return view;
-    }
-
-    private void InitFields() {
-
     }
 
     @Override
@@ -120,22 +124,27 @@ public class SignupFragment extends Fragment
                                     dialogInterface.dismiss();
                                 }
                             });
-                    mBuilder.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    mBuilder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
                         }
-                    });
-                    AlertDialog mdialog = mBuilder.create();
-                    mdialog.show();
+                    }).show();
+                    // AlertDialog mdialog = mBuilder.create();
+                    //mdialog.show();
                 }
                 return;
 
         }
     }
 
-    public void onClick(View v) {
-
+    public void onClick(View view1) {
+        switch (view1.getId()) {
+            case (R.id.signup_btnTakePhoto):
+            case (R.id.signup_ibPhoto):
+                SelectImage();
+                return;
+        }
     }
 
     @Override
@@ -153,12 +162,89 @@ public class SignupFragment extends Fragment
 
     @Override
     public void sendInput(DatePickerDialog datePickerDialog) {
-        //int year, month, day;
-        // Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.YEAR, year);
-//        calendar.set(Calendar.MONTH, month);
-//        calendar.set(Calendar.DAY_OF_MONTH, day);
-//
-//        etDateOfbirth.setText(day + "/" + month + "/" + year);
+
     }
+
+    private void SelectImage() {
+        final String[] items = getResources().getStringArray(R.array.add_camera_arr);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getResources().getString(R.string.add_profile_pic));
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    if (ContextCompat.checkSelfPermission(getContext(), CAMERA)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CAMERA);
+                    } else {
+                        requestPermission(CAMERA, REQUEST_CAMERA);
+                    }
+                } else {
+                    if (ContextCompat.checkSelfPermission(getContext(),
+                            READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/*");
+                        startActivityForResult(intent.createChooser(intent, getResources().getString(R.string.select_photo)), REQUEST_STORAGE);
+                    } else {
+                        requestPermission(READ_EXTERNAL_STORAGE, REQUEST_STORAGE);
+                    }
+                }
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
+
+
+    }
+
+    private void requestPermission(final String permission, final Integer requestCode) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                permission)) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
+            alertBuilder.setCancelable(true);
+            alertBuilder.setTitle(getResources().getString(R.string.permission_necessary));
+            if (requestCode == REQUEST_CAMERA) {
+                alertBuilder.setMessage(getResources().getString(R.string.camera_permission_necessary));
+            } else if (requestCode == REQUEST_STORAGE) {
+                alertBuilder.setMessage(getResources().getString(R.string.external_storage_permission_necessary));
+            } else {
+                alertBuilder.setMessage(getResources().getString(R.string.a_permission_necessary));
+            }
+            alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{permission}, requestCode);
+                }
+            });
+            AlertDialog alert = alertBuilder.create();
+            alert.show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CAMERA) {
+                final Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                ibPhoto.setImageBitmap(bmp);
+                btnTakePhoto.setText(getResources().getString(R.string.change_photo));
+            } else if (requestCode == REQUEST_STORAGE) {
+
+                Uri selectedImageUri = data.getData();
+                ibPhoto.setImageURI(selectedImageUri);
+                btnTakePhoto.setText(getResources().getString(R.string.change_photo));
+            }
+        }
+    }
+
 }

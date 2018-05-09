@@ -22,7 +22,20 @@
     <string name="trainer">Trainer</string>
     <string name="trainee">Trainee</string>
     <string name="phone_Number">Phone number</string>
+    <string name="add_photo">Add photo</string>
+    <string name="add_profile_pic">Add profile photo</string>
+    <string name="change_photo">Change photo</string>
+    <string name="permission_necessary">Permission necessary</string>
+    <string name="camera_permission_necessary">Camera permission necessary</string>
+    <string name="external_storage_permission_necessary">External storage permission is necessary</string>
+    <string name="a_permission_necessary">A permission necessary</string>
+
     <string name="done">Done</string>
+    <string-array name="add_camera_arr">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
+    <string name="select_photo">Select photo</string>
 
 
     <string name="logout">Logout</string>
