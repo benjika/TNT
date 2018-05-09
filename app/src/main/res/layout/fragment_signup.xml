@@ -60,10 +60,10 @@
 
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -111,8 +111,6 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -146,24 +144,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-               <!-- <android.support.design.widget.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
-                    android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/signup_email"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        android:textColorHint="@color/colorPrimary" />
-
-                </android.support.design.widget.TextInputLayout>-->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,6 +161,7 @@
                         android:textColor="@color/primary_text"
                         android:textColorHint="@color/primary_text" />
                 </android.support.design.widget.TextInputLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -245,14 +226,14 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_sign_up"
+                android:id="@+id/btn_sign_up_continue"
                 android:layout_width="220dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_background_dark"
-                android:text="@string/sign_up"
+                android:text="@string/continuee"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp" />
 

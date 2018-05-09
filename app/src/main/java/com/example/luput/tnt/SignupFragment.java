@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.Manifest.permission.CAMERA;
@@ -93,12 +97,14 @@ public class SignupFragment extends Fragment
         etPhone = (EditText) view.findViewById(R.id.signup_phone);
         etDateOfbirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
         etCity = (EditText) view.findViewById(R.id.signup_city);
+        btnSignUp = (Button) view.findViewById(R.id.btn_sign_up);
 
         etDateOfbirth.setOnFocusChangeListener(this);
         etGender.setOnFocusChangeListener(this);
 
         ibPhoto.setOnClickListener(this);
         btnTakePhoto.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
 
         return view;
     }
@@ -143,6 +149,15 @@ public class SignupFragment extends Fragment
             case (R.id.signup_btnTakePhoto):
             case (R.id.signup_ibPhoto):
                 SelectImage();
+                return;
+            case (R.id.btn_sign_up):
+                if (!checkFields()) return;
+                BitmapDrawable drawable = (BitmapDrawable) ibPhoto.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                Person person = new Person(etFirstName.getText().toString()
+                        , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
+                        etPhone.getText().toString(), etDateOfbirth.getText().toString(),
+                        etCity.getText().toString(), null);
                 return;
         }
     }
@@ -249,6 +264,67 @@ public class SignupFragment extends Fragment
                 btnTakePhoto.setText(getResources().getString(R.string.change_photo));
             }
         }
+    }
+
+    private boolean checkFields() {
+        //Check first name
+        String FirstName = etFirstName.getText().toString();
+        FirstName.trim();
+        if (FirstName.equals("")) return false;
+        if (isEnglishOrHebrew(FirstName)) etFirstName.setText(FirstName);
+        else return false;
+
+        //Check last name
+        String LastName = etLastName.getText().toString();
+        FirstName.trim();
+        if (FirstName.equals("")) return false;
+        if (isEnglishOrHebrew(LastName)) etLastName.setText(LastName);
+        else return false;
+
+        //Check gender
+        String gender = etGender.getText().toString();
+        String[] genders = getResources().getStringArray(R.array.genders);
+        if (!(gender.equals(genders[0]) || gender.equals(gender.equals(genders[1])))) return false;
+
+        //Check phone number
+        String phoneNum = etPhone.getText().toString();
+        if (!(phoneNum.length() == 10) ||
+                !(phoneNum.charAt(0) == '0') || !(phoneNum.charAt(0) == '5')) return false;
+
+        //Check date of birth
+        String dateOfBirth = etDateOfbirth.getText().toString();
+        if(!isValidDate(dateOfBirth)) return false;
+        return true;
+    }
+
+    private static boolean isEnglishOrHebrew(String s) {
+        s.trim();
+        char c = s.charAt(0);
+        if (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.HEBREW) {
+            for (char charac : s.toCharArray())
+                if (!((Character.UnicodeBlock.of(charac) == Character.UnicodeBlock.HEBREW) || charac == ' '))
+                    return false;
+            return true;
+        } else if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) {
+            for (char charac : s.toCharArray()) {
+                if (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || charac == ' ')) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 
 }
