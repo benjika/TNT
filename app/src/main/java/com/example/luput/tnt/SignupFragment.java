@@ -3,6 +3,7 @@ package com.example.luput.tnt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,12 +14,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +34,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -60,9 +69,14 @@ public class SignupFragment extends Fragment
     private static Button btnTakePhoto;
     private static String[] Genders;
     private static ArrayAdapter<CharSequence> genderAdapter;
+    private String mCurrentPhotoPath;
     private static int DateOfbirth_day;
     private static int DateOfbirth_month;
     private static int DateOfbirth_year;
+
+    /*private static Marker marker;
+    private PlaceAutocompleteFragment placeAutocompleteFragment;*/
+
 
     private static Button btnSignUp;
     private static RadioGroup radioTrainerOrTrainee;
@@ -96,8 +110,11 @@ public class SignupFragment extends Fragment
         //etEmail = (EditText) view.findViewById(R.id.signup_email);
         etPhone = (EditText) view.findViewById(R.id.signup_phone);
         etDateOfbirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
-        etCity = (EditText) view.findViewById(R.id.signup_city);
-        btnSignUp = (Button) view.findViewById(R.id.btn_sign_up);
+        /*etCity = (EditText) view.findViewById(R.id.signup_city);*/
+        btnSignUp = (Button) view.findViewById(R.id.btn_sign_up_continue);
+
+        /*placeAutocompleteFragment = (PlaceAutocompleteFragment)getFragmentManager().
+                findFragmentById(R.id.place_autocomplete_fragment);*/
 
         etDateOfbirth.setOnFocusChangeListener(this);
         etGender.setOnFocusChangeListener(this);
@@ -108,6 +125,7 @@ public class SignupFragment extends Fragment
 
         return view;
     }
+
 
     @Override
     public void onFocusChange(View view1, boolean b) {
@@ -150,7 +168,7 @@ public class SignupFragment extends Fragment
             case (R.id.signup_ibPhoto):
                 SelectImage();
                 return;
-            case (R.id.btn_sign_up):
+            case (R.id.btn_sign_up_continue):
                 if (!checkFields()) return;
                 BitmapDrawable drawable = (BitmapDrawable) ibPhoto.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
@@ -195,7 +213,19 @@ public class SignupFragment extends Fragment
                     if (ContextCompat.checkSelfPermission(getContext(), CAMERA)
                             == PackageManager.PERMISSION_GRANTED) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, REQUEST_CAMERA);
+                        /* startActivityForResult(intent, REQUEST_CAMERA);*/
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+                            Log.i(TAG, "IOException");
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                            startActivityForResult(intent, REQUEST_CAMERA);
+                        }
                     } else {
                         requestPermission(CAMERA, REQUEST_CAMERA);
                     }
@@ -254,8 +284,24 @@ public class SignupFragment extends Fragment
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                final Bitmap bmp = (Bitmap) data.getExtras().get("data");
-                ibPhoto.setImageBitmap(bmp);
+                // Context applicationContext = getActivity().getApplicationContext();
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(
+                            getActivity().getApplicationContext().getContentResolver(),
+                            Uri.parse(mCurrentPhotoPath));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                bitmap = Bitmap.createScaledBitmap(bitmap, ibPhoto.getWidth(), ibPhoto.getHeight(), false);
+                ibPhoto.setImageBitmap(bitmap);
                 btnTakePhoto.setText(getResources().getString(R.string.change_photo));
             } else if (requestCode == REQUEST_STORAGE) {
 
@@ -293,7 +339,7 @@ public class SignupFragment extends Fragment
 
         //Check date of birth
         String dateOfBirth = etDateOfbirth.getText().toString();
-        if(!isValidDate(dateOfBirth)) return false;
+        if (!isValidDate(dateOfBirth)) return false;
         return true;
     }
 
@@ -325,6 +371,25 @@ public class SignupFragment extends Fragment
             return false;
         }
         return true;
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  // prefix
+                ".jpg",         // suffix
+                storageDir      // directory
+        );
+       /* File image;
+        image = File.createTempFile(imageFileName, ".jpg",  getActivity().getApplicationContext().getCacheDir());*/
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
     }
 
 }
