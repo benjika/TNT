@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10sp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:contentPadding="10dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/training_program_header"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="training workout header"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <CheckBox
+            android:id="@+id/current_program"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/training_program_current" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
