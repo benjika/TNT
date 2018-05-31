@@ -29,7 +29,9 @@ public class TrainingProgram {
         CurrentProgram = false;
     }
 
-    //region Gettrers
+    public TrainingProgram() {}
+
+//region Gettrers
 
 
     public boolean isCurrentProgram() {

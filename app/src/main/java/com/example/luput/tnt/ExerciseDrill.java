@@ -42,7 +42,10 @@ public class ExerciseDrill {
         Description = description;
     }
 
-//endregion
+    public ExerciseDrill() {
+    }
+
+    //endregion
 
     //region Getters
 
