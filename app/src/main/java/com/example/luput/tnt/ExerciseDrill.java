@@ -37,7 +37,12 @@ public class ExerciseDrill {
         Description = description;
     }
 
-    //endregion
+    public ExerciseDrill(String nameOfExercise, String description) {
+        NameOfExercise = nameOfExercise;
+        Description = description;
+    }
+
+//endregion
 
     //region Getters
 
