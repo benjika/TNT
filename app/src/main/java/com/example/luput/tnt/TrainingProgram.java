@@ -5,31 +5,28 @@ import java.util.List;
 public class TrainingProgram {
 
     private String NameOfTheProgram;
-    private List<ExerciseDrill> ListOfDrillsForA;
-    private List<ExerciseDrill> ListOfDrillsForB;
-    private Enums.Type_Of_Training_Program Type;
-    private List<Enums.Days_Of_The_Week> DaysOfWorkOut;
+    private String[] ListOfDrillsForA;
+    private String[] ListOfDrillsForB;
+    private String Type;
+    private DaysOfTrainning DaysOfWorkOut;
     private boolean CurrentProgram;
 
-    public TrainingProgram(String nameOfTheProgram, List<ExerciseDrill> listOfDrillsForA, List<ExerciseDrill> listOfDrillsForB, Enums.Type_Of_Training_Program type, List<Enums.Days_Of_The_Week> daysOfWorkOut) {
-        if(type == Enums.Type_Of_Training_Program.AB) { // for AB program need 2 lists
-            NameOfTheProgram = nameOfTheProgram;
+    public TrainingProgram(String nameOfTheProgram, String[] listOfDrillsForA, String[] listOfDrillsForB, String type, DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
+        NameOfTheProgram = nameOfTheProgram;
+        Type = type;
+        DaysOfWorkOut = daysOfWorkOut;
+        CurrentProgram = currentProgram;
+        if(type.equals("AB")){
             ListOfDrillsForA = listOfDrillsForA;
             ListOfDrillsForB = listOfDrillsForB;
-            Type = type;
-            DaysOfWorkOut = daysOfWorkOut;
         }
-        else{ // if not AB no need 2 list
-            NameOfTheProgram = nameOfTheProgram;
+        else{
             ListOfDrillsForA = listOfDrillsForA;
             ListOfDrillsForB = null;
-            Type = type;
-            DaysOfWorkOut = daysOfWorkOut;
         }
-        CurrentProgram = false;
     }
 
-    public TrainingProgram() {}
+    public TrainingProgram() {/*defult ctor*/}
 
 //region Gettrers
 
@@ -42,19 +39,19 @@ public class TrainingProgram {
         return NameOfTheProgram;
     }
 
-    public List<ExerciseDrill> getListOfDrillsForA() {
+    public String[] getListOfDrillsForA() {
         return ListOfDrillsForA;
     }
 
-    public List<ExerciseDrill> getListOfDrillsForB() {
+    public String[] getListOfDrillsForB() {
         return ListOfDrillsForB;
     }
 
-    public Enums.Type_Of_Training_Program getType() {
+    public String getType() {
         return Type;
     }
 
-    public List<Enums.Days_Of_The_Week> getDaysOfWorkOut() {
+    public DaysOfTrainning getDaysOfWorkOut() {
         return DaysOfWorkOut;
     }
 
