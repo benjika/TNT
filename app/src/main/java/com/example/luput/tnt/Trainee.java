@@ -2,12 +2,25 @@ package com.example.luput.tnt;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Trainee extends Person {
 
-    int TRAINEE_ID = 2;
+    private int TRAINEE_ID = 2;
+    private List<String> Programs;
 
-    public Trainee(String firstName, String lastName, Bitmap photo, String gender, String phone, String dayOfBirth, String homeAddress, String emailAddress) {
-        super(firstName, lastName, photo, gender, phone, dayOfBirth, homeAddress, emailAddress);
+    public Trainee(String firstName, String lastName,String emailAddress) {
+        super(firstName, lastName, emailAddress);
+        Programs = new ArrayList<String>();
+    }
+
+    public Trainee() {
+    }
+
+
+    public List<String> getPrograms() {
+        return Programs;
     }
 
     public int getTRAINEE_ID() {

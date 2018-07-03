@@ -1,8 +1,9 @@
 package com.example.luput.tnt;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TrainingProgram {
+public class TrainingProgram implements Serializable {
 
     private String NameOfTheProgram;
     private String[] ListOfDrillsForA;

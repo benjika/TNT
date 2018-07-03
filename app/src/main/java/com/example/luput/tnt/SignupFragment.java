@@ -13,9 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -29,6 +30,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -46,39 +54,30 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignupFragment extends Fragment
-        implements
-        View.OnClickListener,
-        View.OnFocusChangeListener,
-        DatePickerDialog.OnDateSetListener,
-        DateDialog.OnInputSelected {
+public class SignupFragment extends Fragment {
 
-    private static EditText etFirstName;
-    private static EditText etLastName;
-    private static EditText etEmail;
-    private static EditText etPhone;
-    private static EditText etCity;
-    private static EditText etDateOfbirth;
-    private static EditText etGender;
-    private static ImageButton ibPhoto;
-    private static Button btnTakePhoto;
-    private static String[] Genders;
-    private static ArrayAdapter<CharSequence> genderAdapter;
-    private String mCurrentPhotoPath;
-    private static int DateOfbirth_day;
-    private static int DateOfbirth_month;
-    private static int DateOfbirth_year;
-    private static boolean isCoach;
+    private EditText etFirstName;
+    private EditText etLastName;
+    private boolean isCoach;
+    private EditText Email;
+    private EditText Password;
+    private Button btnSignUp;
+    private RadioGroup radioTrainerOrTrainee;
+    private FirebaseAuth mAuth;
+    private DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth.AuthStateListener AuthListenerl;
 
-    /*private static Marker marker;
-    private PlaceAutocompleteFragment placeAutocompleteFragment;*/
+    @Override
+    public void onStart() {
+        //mAuth.addAuthStateListener(AuthListenerl);
+        super.onStart();
+    }
 
-
-    private static Button btnSignUp;
-    private static RadioGroup radioTrainerOrTrainee;
-    static View view;
-    private static Integer REQUEST_CAMERA = 0, REQUEST_STORAGE = 1;
-
+    @Override
+    public void onStop() {
+        //mAuth.removeAuthStateListener(AuthListenerl);
+        super.onStop();
+    }
 
     public SignupFragment() {
         // Required empty public constructor
@@ -93,27 +92,18 @@ public class SignupFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_signup, container, false);
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
         // Inflate the layout for this fragment
 
         radioTrainerOrTrainee = (RadioGroup) view.findViewById(R.id.radio_trainerOrTrainee);
         etFirstName = (EditText) view.findViewById(R.id.signup_firstName);
         etLastName = (EditText) view.findViewById(R.id.signup_lastName);
-        etGender = (EditText) view.findViewById(R.id.signup_gender);
-        ibPhoto = (ImageButton) view.findViewById(R.id.signup_ibPhoto);
-        btnTakePhoto = (Button) view.findViewById(R.id.signup_btnTakePhoto);
-        //etEmail = (EditText) view.findViewById(R.id.signup_email);
-        etPhone = (EditText) view.findViewById(R.id.signup_phone);
-        etDateOfbirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
-        /*etCity = (EditText) view.findViewById(R.id.signup_city);*/
-        btnSignUp = (Button) view.findViewById(R.id.btn_sign_up_continue);
+        Email = view.findViewById(R.id.signup_email);
+        Password = view.findViewById(R.id.signup_password);
+        btnSignUp = (Button) view.findViewById(R.id.signup_submit);
+        mAuth = FirebaseAuth.getInstance();
 
-        /*placeAutocompleteFragment = (PlaceAutocompleteFragment)getFragmentManager().
-                findFragmentById(R.id.place_autocomplete_fragment);*/
-
-        etDateOfbirth.setOnFocusChangeListener(this);
-        etGender.setOnFocusChangeListener(this);
         radioTrainerOrTrainee.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -123,245 +113,64 @@ public class SignupFragment extends Fragment
                 else{
                     isCoach = true;
                 }
-
             }
         });
-        ibPhoto.setOnClickListener(this);
-        btnTakePhoto.setOnClickListener(this);
-        btnSignUp.setOnClickListener(this);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkFields()){
+                    final String UserName = Email.getText().toString();
+                    String password = Password.getText().toString();
+                    mAuth.createUserWithEmailAndPassword(UserName,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                String UserID = mAuth.getCurrentUser().getUid();
+                                Log.d("CK", UserID);
+                                if(isCoach){
+                                    DB.child("coach").child(UserID).setValue(UserID);
+                                    Coach coach = new Coach(etFirstName.getText().toString(),etLastName.getText().toString(),UserName);
+                                    DB.child("coach").child(UserID).setValue(coach);
+                                }
+                                else {
+                                    DB.child("trainee").child(UserID).setValue(UserID);
+                                    Trainee trainee = new Trainee(etFirstName.getText().toString(),etLastName.getText().toString(),UserName);
+                                    DB.child("trainee").child(UserID).setValue(trainee);
+                                }
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+
+
+
 
         return view;
     }
 
-
-    @Override
-    public void onFocusChange(View view1, boolean b) {
-        switch (view1.getId()) {
-            case R.id.signup_dateOfBith:
-                if (etDateOfbirth.hasFocus()) {
-                    DialogFragment datePicker = new DateDialog();
-                    datePicker.show(getFragmentManager(), "date picker");
-                }
-                return;
-            case R.id.signup_gender:
-                if (etGender.hasFocus()) {
-                    Genders = getResources().getStringArray(R.array.genders);
-                    final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                    mBuilder.setTitle(getResources().getString(R.string.select_gender))
-                            .setSingleChoiceItems(Genders, -1, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    etGender.setText(Genders[i]);
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                    mBuilder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    }).show();
-                    // AlertDialog mdialog = mBuilder.create();
-                    //mdialog.show();
-                }
-                return;
-
-        }
-    }
-
-    public void onClick(View view1) {
-        switch (view1.getId()) {
-            case (R.id.signup_btnTakePhoto):
-            case (R.id.signup_ibPhoto):
-                SelectImage();
-                return;
-            case (R.id.btn_sign_up_continue):
-                if (!checkFields()) return;
-                BitmapDrawable drawable = (BitmapDrawable) ibPhoto.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                if(isCoach){
-                    Coach coach = new Coach(etFirstName.getText().toString()
-                            , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
-                            etPhone.getText().toString(), etDateOfbirth.getText().toString(),
-                            etCity.getText().toString(), null);
-                }
-                else{
-                    Trainee trainee = new Trainee(etFirstName.getText().toString()
-                            , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
-                            etPhone.getText().toString(), etDateOfbirth.getText().toString(),
-                            etCity.getText().toString(), null);
-                }
-                EmailAndPasswordFragment emailAndPasswordFragment = new EmailAndPasswordFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(view1.getId(),emailAndPasswordFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                return;
-        }
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-        super.onResume();
-        EditText dateOfBirth = (EditText) view.findViewById(R.id.signup_dateOfBith);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        month++;
-
-        String day_s = day > 9 ? "" + day : "0" + day;
-        String month_s = month > 9 ? "" + month : "0" + month;
-
-        dateOfBirth.setText(day_s + "/" + month_s + "/" + year);
-    }
-
-    @Override
-    public void sendInput(DatePickerDialog datePickerDialog) {
-
-    }
-
-    private void SelectImage() {
-        final String[] items = getResources().getStringArray(R.array.add_camera_arr);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getResources().getString(R.string.add_profile_pic));
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    if (ContextCompat.checkSelfPermission(getContext(), CAMERA)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        /* startActivityForResult(intent, REQUEST_CAMERA);*/
-                        File photoFile = null;
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            // Error occurred while creating the File
-                            Log.i(TAG, "IOException");
-                        }
-                        // Continue only if the File was successfully created
-                        if (photoFile != null) {
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                            startActivityForResult(intent, REQUEST_CAMERA);
-                        }
-                    } else {
-                        requestPermission(CAMERA, REQUEST_CAMERA);
-                    }
-                } else {
-                    if (ContextCompat.checkSelfPermission(getContext(),
-                            READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/*");
-                        startActivityForResult(intent.createChooser(intent, getResources().getString(R.string.select_photo)), REQUEST_STORAGE);
-                    } else {
-                        requestPermission(READ_EXTERNAL_STORAGE, REQUEST_STORAGE);
-                    }
-                }
-            }
-        });
-        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        }).show();
-
-
-    }
-
-    private void requestPermission(final String permission, final Integer requestCode) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                permission)) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
-            alertBuilder.setCancelable(true);
-            alertBuilder.setTitle(getResources().getString(R.string.permission_necessary));
-            if (requestCode == REQUEST_CAMERA) {
-                alertBuilder.setMessage(getResources().getString(R.string.camera_permission_necessary));
-            } else if (requestCode == REQUEST_STORAGE) {
-                alertBuilder.setMessage(getResources().getString(R.string.external_storage_permission_necessary));
-            } else {
-                alertBuilder.setMessage(getResources().getString(R.string.a_permission_necessary));
-            }
-            alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{permission}, requestCode);
-                }
-            });
-            AlertDialog alert = alertBuilder.create();
-            alert.show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CAMERA) {
-                // Context applicationContext = getActivity().getApplicationContext();
-                Bitmap bitmap = null;
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(
-                            getActivity().getApplicationContext().getContentResolver(),
-                            Uri.parse(mCurrentPhotoPath));
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-                bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                bitmap = Bitmap.createScaledBitmap(bitmap, ibPhoto.getWidth(), ibPhoto.getHeight(), false);
-                ibPhoto.setImageBitmap(bitmap);
-                btnTakePhoto.setText(getResources().getString(R.string.change_photo));
-            } else if (requestCode == REQUEST_STORAGE) {
-
-                Uri selectedImageUri = data.getData();
-                ibPhoto.setImageURI(selectedImageUri);
-                btnTakePhoto.setText(getResources().getString(R.string.change_photo));
-            }
-        }
-    }
-
     private boolean checkFields() {
+        boolean isValid = true;
+
         //Check first name
         String FirstName = etFirstName.getText().toString();
         FirstName.trim();
-        if (FirstName.equals("")) return false;
+        if (FirstName.equals("")) isValid=false;
         if (isEnglishOrHebrew(FirstName)) etFirstName.setText(FirstName);
-        else return false;
+        else isValid = false;
 
         //Check last name
         String LastName = etLastName.getText().toString();
-        FirstName.trim();
-        if (FirstName.equals("")) return false;
+        LastName.trim();
+        if (LastName.equals("")) isValid=false;
         if (isEnglishOrHebrew(LastName)) etLastName.setText(LastName);
-        else return false;
+        else isValid=false;
 
-        //Check gender
-        String gender = etGender.getText().toString();
-        String[] genders = getResources().getStringArray(R.array.genders);
-        if (!(gender.equals(genders[0]) || gender.equals(gender.equals(genders[1])))) return false;
-
-        //Check phone number
-        String phoneNum = etPhone.getText().toString();
-        if (!(phoneNum.length() == 10) ||
-                !(phoneNum.charAt(0) == '0') || !(phoneNum.charAt(0) == '5')) return false;
-
-        //Check date of birth
-        String dateOfBirth = etDateOfbirth.getText().toString();
-        if (!isValidDate(dateOfBirth)) return false;
-        return true;
-    }
+        return isValid;
+      }
 
     private static boolean isEnglishOrHebrew(String s) {
         s.trim();
@@ -381,7 +190,7 @@ public class SignupFragment extends Fragment
         }
         return false;
     }
-
+/*
     private static boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
@@ -391,8 +200,8 @@ public class SignupFragment extends Fragment
             return false;
         }
         return true;
-    }
-
+    }*/
+    /*
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -405,11 +214,11 @@ public class SignupFragment extends Fragment
                 storageDir      // directory
         );
        /* File image;
-        image = File.createTempFile(imageFileName, ".jpg",  getActivity().getApplicationContext().getCacheDir());*/
+        image = File.createTempFile(imageFileName, ".jpg",  getActivity().getApplicationContext().getCacheDir());
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
-
+*/
 }
