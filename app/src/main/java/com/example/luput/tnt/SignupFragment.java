@@ -3,15 +3,12 @@ package com.example.luput.tnt;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,11 +16,10 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +33,6 @@ import android.widget.RadioGroup;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,6 +68,7 @@ public class SignupFragment extends Fragment
     private static int DateOfbirth_day;
     private static int DateOfbirth_month;
     private static int DateOfbirth_year;
+    private static boolean isCoach;
 
     /*private static Marker marker;
     private PlaceAutocompleteFragment placeAutocompleteFragment;*/
@@ -118,7 +114,18 @@ public class SignupFragment extends Fragment
 
         etDateOfbirth.setOnFocusChangeListener(this);
         etGender.setOnFocusChangeListener(this);
+        radioTrainerOrTrainee.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.radio_trainee){
+                    isCoach = false;
+                }
+                else{
+                    isCoach = true;
+                }
 
+            }
+        });
         ibPhoto.setOnClickListener(this);
         btnTakePhoto.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
@@ -172,10 +179,23 @@ public class SignupFragment extends Fragment
                 if (!checkFields()) return;
                 BitmapDrawable drawable = (BitmapDrawable) ibPhoto.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
-                Person person = new Person(etFirstName.getText().toString()
-                        , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
-                        etPhone.getText().toString(), etDateOfbirth.getText().toString(),
-                        etCity.getText().toString(), null);
+                if(isCoach){
+                    Coach coach = new Coach(etFirstName.getText().toString()
+                            , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
+                            etPhone.getText().toString(), etDateOfbirth.getText().toString(),
+                            etCity.getText().toString(), null);
+                }
+                else{
+                    Trainee trainee = new Trainee(etFirstName.getText().toString()
+                            , etLastName.getText().toString(), bitmap, etGender.getText().toString(),
+                            etPhone.getText().toString(), etDateOfbirth.getText().toString(),
+                            etCity.getText().toString(), null);
+                }
+                EmailAndPasswordFragment emailAndPasswordFragment = new EmailAndPasswordFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(view1.getId(),emailAndPasswordFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 return;
         }
     }

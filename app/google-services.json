@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "136091167855",
+    "firebase_url": "https://androidtrainersandtrainee.firebaseio.com",
+    "project_id": "androidtrainersandtrainee",
+    "storage_bucket": "androidtrainersandtrainee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136091167855:android:497f0369a99f3c01",
+        "android_client_info": {
+          "package_name": "com.example.luput.tnt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136091167855-33ee8op7d1evc32ksq00vrk1immimlsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwd_98W1WlYClEkYrdU7HIuztVD0FJeUA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
