@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:contentPadding="10dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Drill Name"
+            android:textAlignment="center"
+            android:id="@+id/drill_name"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/number_of_sets"
+                android:layout_weight="2"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Number_of_sets"
+                android:hint="15"
+                android:layout_weight="1"
+                android:textSize="21sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:layout_weight="2"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weight_in_kg"
+                android:hint="15"
+                android:layout_weight="1"
+                android:textSize="21sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rest"
+                android:layout_weight="2"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Rest_In_seconds"
+                android:hint="15"
+                android:layout_weight="1"
+                android:textSize="21sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:hint="Description"
+            android:textSize="22sp"
+            android:layout_marginTop="10sp"
+            android:id="@+id/drill_description"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Link_to_drill"
+            android:textSize="21sp"
+            android:textAlignment="center"
+            android:layout_marginTop="15sp"
+            android:id="@+id/Link_To_Drill_Movie"
+            android:clickable="true"
+            android:autoLink="web"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
