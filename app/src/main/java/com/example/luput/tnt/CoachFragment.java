@@ -2,6 +2,8 @@ package com.example.luput.tnt;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Collections.*;
 import static java.util.Collections.sort;
 
 
@@ -32,10 +35,7 @@ public class CoachFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ArrayList<String> firstNamesALIst = new ArrayList<>();
-    private ArrayList<String> lastNamesALIst = new ArrayList<>();
-    private ArrayList<String> emailsALIst = new ArrayList<>();
-    List<Trainee> traineeList;
+    ArrayList<Trainee> traineeList = new ArrayList<>();
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -52,21 +52,6 @@ public class CoachFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        UserID = firebaseUser.getUid();
-        traineeList = traineesOfThisCoach();
-        initNames();
-
-    }
-
-    private void initNames() {
-        Log.d(TAG, "initnames: Started");
-
-        //TODO add names from Firebase
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,27 +59,51 @@ public class CoachFragment extends Fragment {
         // Inflate the layout for this fragment
 
         Log.d(TAG, "initnames: Started");
+        View view = inflater.inflate(R.layout.fragment_coach, container, false);
+        UserID = firebaseUser.getUid();
+        traineeList = traineesOfThisCoach();
 
+        //Init Adapter
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.coach_recyclerView);
+        CoachAdapter coachAdapter = new CoachAdapter(container.getContext(), traineeList);
+        recyclerView.setAdapter(coachAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        return inflater.inflate(R.layout.fragment_coach, container, false);
+        coachAdapter.setOnItemClickListener(new CoachAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                String email = traineeList.get(position).getEmailAddress();
+                FragmentManager fragmentManager = getFragmentManager();
+                Bundle bundle = new Bundle();
+
+                for (Trainee trainee : traineeList) {
+                    if (trainee.getEmailAddress().equals(email)) {
+                        bundle.putSerializable("Trainee", trainee);
+                    }
+                }
+
+                CoachEditProgramFragment coachEditProgramFragment = CoachEditProgramFragment.newInstance();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, coachEditProgramFragment);
+                fragmentTransaction.commit();
+            }
+        });
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override
@@ -103,18 +112,14 @@ public class CoachFragment extends Fragment {
         mListener = null;
     }
 
-    private void initRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.coach_recyclerView);
-        //CoachAdapter coachAdapter =
-    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-    private List<Trainee> traineesOfThisCoach() {
-        final List<Trainee> listToReturn = new ArrayList<>();
+    private ArrayList<Trainee> traineesOfThisCoach() {
+        final ArrayList<Trainee> listToReturn = new ArrayList<>();
         mDatabase.child("coach").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -137,11 +142,12 @@ public class CoachFragment extends Fragment {
         return listToReturn;
     }
 
-    public int numOfTrainees() {
-        return traineeList.size();
-    }
 
     public List<Trainee> getTraineeList() {
         return traineeList;
+    }
+
+    public void editTrainee(String email) {
+
     }
 }

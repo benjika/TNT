@@ -3,25 +3,26 @@ package com.example.luput.tnt;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Trainee extends Person implements Comparable {
+public class Trainee extends Person implements Comparable,Serializable {
 
     private int TRAINEE_ID = 2;
-    private List<String> Programs;
+    private List<ExerciseDrill> Programs;
 
     public Trainee(String firstName, String lastName, String emailAddress) {
         super(firstName, lastName, emailAddress);
-        Programs = new ArrayList<String>();
+        Programs = new ArrayList<>();
     }
 
     public Trainee() {
     }
 
 
-    public List<String> getPrograms() {
+    public List<ExerciseDrill> getPrograms() {
         return Programs;
     }
 

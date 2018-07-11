@@ -1,6 +1,7 @@
 package com.example.luput.tnt;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
 
     private ArrayList<Trainee> trainees = new ArrayList<>();
     private Context mContext;
+    private MyClickListener myClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,7 +33,13 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
             firstNameTV = itemView.findViewById(R.id.coach_item_firstName);
             lastNameTV = itemView.findViewById(R.id.coach_item_lastName);
             emailTV = itemView.findViewById(R.id.coach_item_email);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    myClickListener.onItemClick(getAdapterPosition(), v);
+                }
+            });
         }
+
     }
 
     @Override
@@ -55,15 +63,17 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
         holder.firstNameTV.setText(trainee.getFirstName());
         holder.lastNameTV.setText(trainee.getLastName());
         holder.emailTV.setText(trainee.getEmailAddress());
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        /*holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on " + trainee.getFirstName() + " "
                         + trainee.getLastName());
                 Toast.makeText(mContext, trainee.getFirstName() + " "
                         + trainee.getLastName(), Toast.LENGTH_SHORT).show();
+
+
             }
-        });
+        });*/
 
     }
 
@@ -72,5 +82,11 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
         return trainees.size();
     }
 
+    public interface MyClickListener {
+        void onItemClick(int position, View v);
+    }
 
+    public void setOnItemClickListener(MyClickListener clickListener) {
+        myClickListener = clickListener;
+    }
 }
