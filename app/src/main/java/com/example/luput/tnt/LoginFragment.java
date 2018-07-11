@@ -2,6 +2,7 @@ package com.example.luput.tnt;
 
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -82,13 +83,13 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful()) {
                             String userUID = mAuth.getCurrentUser().getUid();
                             if (DBref.child("trainee").child(userUID).getKey().isEmpty()) {
-                                //move to coach
+                                Intent intent = new Intent(getActivity(),afterLoginActiviry.class);
+                                intent.putExtra("isCoach",true);
+                                startActivity(intent);
                             } else {
-                                //move to traineefragment
-                                TraineeFragment fragment = new TraineeFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(container.getId(), fragment);
-                                fragmentTransaction.commit();
+                                Intent intent = new Intent(getActivity(),afterLoginActiviry.class);
+                                intent.putExtra("isCoach",false);
+                                startActivity(intent);
                             }
                         } else {
                             //make popup
@@ -97,10 +98,6 @@ public class LoginFragment extends Fragment {
                 });
             }
         });
-
-
-
         return view;
     }
-
 }

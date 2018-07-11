@@ -15,11 +15,13 @@ import android.support.v7.widget.Toolbar;
 public class afterLoginActiviry extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
+    boolean isCoach;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afterlogin);
+        isCoach = getIntent().getBooleanExtra("isCoach",false);
 
         Toolbar toolbar = findViewById(R.id.afterLoginToolBar);
         setSupportActionBar(toolbar);
@@ -34,15 +36,26 @@ public class afterLoginActiviry extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 drawerLayout.closeDrawers();
+                //make switch case base on coach or trainee
                 return false;
             }
         });
+        if(isCoach){
+
+        }
+        else {
+            TraineeFragment traineeFragment = new TraineeFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.Fragment_container_afterlogin, traineeFragment)
+                    .commit();
+        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            //open menu
             drawerLayout.openDrawer(GravityCompat.START);
         }
         return super.onOptionsItemSelected(item);

@@ -121,6 +121,9 @@ public class SignupFragment extends Fragment {
                                     DB.child("trainee").child(UserID).setValue(trainee);
                                 }
                             }
+                            else{
+                                //popup
+                            }
                         }
                     });
 
