@@ -39,7 +39,12 @@
     <string name="continuee">Continue</string>
 
     <string name="fill_email">Fill Email address</string>
+    <string name="fill_email_again">Please ReEnter Your Email</string>
     <string name="choose_password">Choose password</string>
+    <string name="choose_password_again">Please ReEnter Your Password</string>
+
+
+    <string name="training_program_current">Current Program</string>
 
 
     <string name="logout">Logout</string>
@@ -62,5 +67,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- trainee section -->
+    <string name="number_of_sets">Sets:</string>
+    <string name="weight">Weight:</string>
+    <string name="rest">Rest:</string>
+    <string name="Link_to_drill">Link To Movie</string>
 
 </resources>

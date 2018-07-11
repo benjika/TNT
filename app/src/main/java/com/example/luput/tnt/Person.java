@@ -12,22 +12,15 @@ public class Person implements Serializable {
 
     private String firstName;
     private String lastName;
-    transient private Bitmap photo;
-    private String gender;
-    private String phone;
-    private String dayOfBirth;
-    private String homeAddress;
     private String emailAddress;
 
-    public Person(String firstName, String lastName, Bitmap photo, String gender, String phone, String dayOfBirth, String homeAddress, String emailAddress) {
+    public Person(String firstName, String lastName,String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.photo = photo;
-        this.gender = gender;
-        this.phone = phone;
-        this.dayOfBirth = dayOfBirth;
-        this.homeAddress = homeAddress;
         this.emailAddress = emailAddress;
+    }
+
+    public Person() {
     }
 
     public String getFirstName() {
@@ -46,46 +39,6 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public Bitmap getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getDayOfBirth() {
-        return dayOfBirth;
-    }
-
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -93,7 +46,7 @@ public class Person implements Serializable {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-
+/*
     private void writeObject(ObjectOutputStream oos) throws IOException {
         if (photo != null) {
             photo.compress(Bitmap.CompressFormat.JPEG, 70, oos);
@@ -105,4 +58,6 @@ public class Person implements Serializable {
         photo = BitmapFactory.decodeStream(ois);
         ois.defaultReadObject();
     }
+
+    */
 }
