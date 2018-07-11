@@ -1,4 +1,4 @@
-package com.example.luput.tnt;
+/*package com.example.luput.tnt;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -29,7 +29,7 @@ public class WorkOutService extends IntentService {
         initdays(days,dayofworkout);
 
         if(dayofworkout[currendDay]){
-            Notification.Builder builder = new Notification.Builder(this,CHANNEL_ID)
+           /* Notification.Builder builder = new Notification.Builder(this,CHANNEL_ID)
                     .setSmallIcon(R.drawable.notificon)
                     .setContentTitle("Today is Work Out Day")
                     .build();
@@ -48,3 +48,4 @@ public class WorkOutService extends IntentService {
 
 
 }
+*/

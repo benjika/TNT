@@ -1,6 +1,6 @@
 package com.example.luput.tnt;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +28,10 @@ public class FullProgramFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_full_trainingprogram,container,false);
+        View view = inflater.inflate(R.layout.fragment_full_trainingprogram, container, false);
 
         Bundle bundle = getArguments();
-        final TrainingProgram ProgramToShow =(TrainingProgram)bundle.getSerializable("ProgramToShow");
+        final TrainingProgram ProgramToShow = (TrainingProgram) bundle.getSerializable("ProgramToShow");
         ProgramHeadLine = view.findViewById(R.id.Full_Program_Headline);
         TrainingProgramDrills = view.findViewById(R.id.full_training_program_drills);
 
@@ -40,7 +40,7 @@ public class FullProgramFragment extends Fragment {
         DB.child("drills").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(String CurrentDrillID : ProgramToShow.getListOfDrillsForA()){
+                for (String CurrentDrillID : ProgramToShow.getListOfDrillsForA()) {
                     ProgramA.add(dataSnapshot.child(CurrentDrillID).getValue(ExerciseDrill.class));
                 }
             }
@@ -51,12 +51,11 @@ public class FullProgramFragment extends Fragment {
         });
 
 
-
-        if (ProgramToShow.getListOfDrillsForB() != null){ // cheack for program B
+        if (ProgramToShow.getListOfDrillsForB() != null) { // cheack for program B
             DB.child("drills").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(String CurrentDrillID : ProgramToShow.getListOfDrillsForB()){
+                    for (String CurrentDrillID : ProgramToShow.getListOfDrillsForB()) {
                         ProgramA.add(dataSnapshot.child(CurrentDrillID).getValue(ExerciseDrill.class));
                     }
                 }
@@ -65,8 +64,7 @@ public class FullProgramFragment extends Fragment {
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
-        }
-        else{
+        } else {
             ProgramB = null;
         }
 

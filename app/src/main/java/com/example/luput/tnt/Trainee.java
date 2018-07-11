@@ -5,13 +5,18 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trainee extends Person {
+public class Trainee {
 
-    private int TRAINEE_ID = 2;
+
     private List<String> Programs;
+    private String FirstName;
+    private String LastName;
+    private String Email;
 
     public Trainee(String firstName, String lastName,String emailAddress) {
-        super(firstName, lastName, emailAddress);
+        FirstName = firstName;
+        LastName = lastName;
+        Email = emailAddress;
         Programs = new ArrayList<String>();
     }
 
@@ -19,13 +24,35 @@ public class Trainee extends Person {
     }
 
 
+    public void setPrograms(List<String> programs) {
+        Programs = programs;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
     public List<String> getPrograms() {
         return Programs;
     }
 
-    public int getTRAINEE_ID() {
-        return TRAINEE_ID;
+    public String getFirstName() {
+        return FirstName;
     }
 
+    public String getLastName() {
+        return LastName;
+    }
 
+    public String getEmail() {
+        return Email;
+    }
 }
