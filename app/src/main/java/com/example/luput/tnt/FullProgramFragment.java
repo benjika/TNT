@@ -23,7 +23,7 @@ public class FullProgramFragment extends Fragment {
     RecyclerView TrainingProgramDrills;
     List<ExerciseDrill> ProgramA;
     List<ExerciseDrill> ProgramB;
-    DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
 
     @Nullable
     @Override
@@ -37,7 +37,11 @@ public class FullProgramFragment extends Fragment {
 
 
         ProgramHeadLine.setText(ProgramToShow.getNameOfTheProgram());
-        DB.child("drills").addListenerForSingleValueEvent(new ValueEventListener() {
+        ProgramA.addAll(ProgramToShow.getListOfDrillsForA());
+        ProgramA.addAll(ProgramToShow.getListOfDrillsForB());
+
+        //region stam
+        /*DB.child("drills").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (String CurrentDrillID : ProgramToShow.getListOfDrillsForA()) {
@@ -67,7 +71,8 @@ public class FullProgramFragment extends Fragment {
         } else {
             ProgramB = null;
         }
-
+*/
+        //endregion
         FullProgramAdapter adapter = new FullProgramAdapter(ProgramA);
         TrainingProgramDrills.setAdapter(adapter);
 

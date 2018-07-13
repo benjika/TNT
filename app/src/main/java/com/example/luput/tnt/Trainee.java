@@ -8,39 +8,60 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Trainee extends Person implements Comparable,Serializable {
 
-    private int TRAINEE_ID = 2;
-    private List<ExerciseDrill> Programs;
+public class Trainee implements Comparable,Serializable{
 
-    public Trainee(String firstName, String lastName, String emailAddress) {
-        super(firstName, lastName, emailAddress);
-        Programs = new ArrayList<>();
-    }
+
+    private List<TrainingProgram> Programs;
+    private String FirstName;
+    private String LastName;
+    private String Email;
 
     public Trainee() {
     }
 
+    public Trainee(String firstName, String lastName, String emailAddress) {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = emailAddress;
+        Programs = new ArrayList<TrainingProgram>();
+    }
 
-    public List<ExerciseDrill> getPrograms() {
+    public List<TrainingProgram> getPrograms() {
         return Programs;
     }
 
-    public int getTRAINEE_ID() {
-        return TRAINEE_ID;
+    public void setPrograms(List<TrainingProgram> programs){
+        Programs = programs;
     }
 
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
 
-   /* public int compareTo(Trainee comparesto) {
-        if (this.getLastName().compareTo(((Trainee) comparesto).getLastName()) != 0)
-            return this.getFirstName().compareTo(((Trainee) comparesto).getLastName());
-        else if (this.getFirstName().compareTo(((Trainee) comparesto).getFirstName()) != 0) {
-            return this.getFirstName().compareTo(((Trainee) comparesto).getFirstName());
-        }
-        return this.getEmailAddress().compareTo(((Trainee) comparesto).getEmailAddress());
-        // For Descending order do like this
-        //return compareage-this.studentage;
-    }*/
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getEmailAddress(){
+        return Email;
+    }
 
     public static Comparator<Trainee> StuNameComparator = new Comparator<Trainee>() {
         public int compare(Trainee s1, Trainee s2) {
@@ -53,12 +74,6 @@ public class Trainee extends Person implements Comparable,Serializable {
                 return s1.getFirstName().compareTo(((Trainee) s2).getFirstName());
             }
            return s1.getEmailAddress().compareTo(((Trainee) s2).getEmailAddress());
-//
-          //  //ascending order
-          //  return StudentName1.compareTo(StudentName2);
-//
-          //  //descending order
-          //  //return StudentName2.compareTo(StudentName1);
         }};
 
     @Override
@@ -71,3 +86,4 @@ public class Trainee extends Person implements Comparable,Serializable {
         return this.getEmailAddress().compareTo(((Trainee) o).getEmailAddress());
     }
 }
+
