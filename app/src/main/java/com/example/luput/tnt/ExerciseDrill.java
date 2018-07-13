@@ -47,7 +47,7 @@ public class ExerciseDrill {
 
     //endregion
 
-    //region Getters
+    //region Getters + Setters
 
     public String getNameOfExercise() {
         return NameOfExercise;
@@ -85,6 +85,41 @@ public class ExerciseDrill {
         return Description;
     }
 
+    public void setNameOfExercise(String nameOfExercise) {
+        NameOfExercise = nameOfExercise;
+    }
+
+    public void setLinkToVideo(String linkToVideo) {
+        LinkToVideo = linkToVideo;
+    }
+
+    public void setWeightInKg(float weightInKg) {
+        WeightInKg = weightInKg;
+    }
+
+    public void setNumberOfSets(int numberOfSets) {
+        NumberOfSets = numberOfSets;
+    }
+
+    public void setNumberOfRepeat(int numberOfRepeat) {
+        NumberOfRepeat = numberOfRepeat;
+    }
+
+    public void setNumberOfRestInSeconds(int numberOfRestInSeconds) {
+        NumberOfRestInSeconds = numberOfRestInSeconds;
+    }
+
+    public void setDurationOfRunInMin(int durationOfRunInMin) {
+        DurationOfRunInMin = durationOfRunInMin;
+    }
+
+    public void setLengthOfRunInKM(float lengthOfRunInKM) {
+        LengthOfRunInKM = lengthOfRunInKM;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 
     //endregion
 }

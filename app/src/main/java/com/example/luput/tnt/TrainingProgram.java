@@ -1,60 +1,76 @@
 package com.example.luput.tnt;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingProgram implements Serializable {
 
     private String NameOfTheProgram;
-    private String[] ListOfDrillsForA;
-    private String[] ListOfDrillsForB;
+    private ArrayList<ExerciseDrill> ListOfDrillsForA;
+    private ArrayList<ExerciseDrill> ListOfDrillsForB;
     private String Type;
     private DaysOfTrainning DaysOfWorkOut;
     private boolean CurrentProgram;
 
-    public TrainingProgram(String nameOfTheProgram, String[] listOfDrillsForA, String[] listOfDrillsForB, String type, DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
+    public TrainingProgram(String nameOfTheProgram, ArrayList<ExerciseDrill> listOfDrillsForA, ArrayList<ExerciseDrill> listOfDrillsForB, String type, DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
         NameOfTheProgram = nameOfTheProgram;
+        ListOfDrillsForA = listOfDrillsForA;
+        ListOfDrillsForB = listOfDrillsForB;
         Type = type;
         DaysOfWorkOut = daysOfWorkOut;
         CurrentProgram = currentProgram;
-        if(type.equals("AB")){
-            ListOfDrillsForA = listOfDrillsForA;
-            ListOfDrillsForB = listOfDrillsForB;
-        }
-        else{
-            ListOfDrillsForA = listOfDrillsForA;
-            ListOfDrillsForB = null;
-        }
-    }
-
-    public TrainingProgram() {/*defult ctor*/}
-
-//region Gettrers
-
-
-    public boolean isCurrentProgram() {
-        return CurrentProgram;
     }
 
     public String getNameOfTheProgram() {
         return NameOfTheProgram;
     }
 
-    public String[] getListOfDrillsForA() {
+    public void setNameOfTheProgram(String nameOfTheProgram) {
+        NameOfTheProgram = nameOfTheProgram;
+    }
+
+    public ArrayList<ExerciseDrill> getListOfDrillsForA() {
         return ListOfDrillsForA;
     }
 
-    public String[] getListOfDrillsForB() {
+    public void setListOfDrillsForA(ArrayList<ExerciseDrill> listOfDrillsForA) {
+        ListOfDrillsForA = listOfDrillsForA;
+    }
+
+    public ArrayList<ExerciseDrill> getListOfDrillsForB() {
         return ListOfDrillsForB;
+    }
+
+    public void setListOfDrillsForB(ArrayList<ExerciseDrill> listOfDrillsForB) {
+        ListOfDrillsForB = listOfDrillsForB;
     }
 
     public String getType() {
         return Type;
     }
 
+    public void setType(String type) {
+        Type = type;
+    }
+
     public DaysOfTrainning getDaysOfWorkOut() {
         return DaysOfWorkOut;
     }
 
-    //endregion
+    public void setDaysOfWorkOut(DaysOfTrainning daysOfWorkOut) {
+        DaysOfWorkOut = daysOfWorkOut;
+    }
+
+    public boolean isCurrentProgram() {
+        return CurrentProgram;
+    }
+
+    public void setCurrentProgram(boolean currentProgram) {
+        CurrentProgram = currentProgram;
+    }
+
+    public TrainingProgram() {/*defult ctor*/}
+
+
 }

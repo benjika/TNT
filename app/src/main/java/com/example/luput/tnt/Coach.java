@@ -23,6 +23,22 @@ public class Coach {
     public Coach() {
     }
 
+    public void setTrainees(List<String> trainees) {
+        this.trainees = trainees;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
     public String getFirstName() {
         return FirstName;
     }

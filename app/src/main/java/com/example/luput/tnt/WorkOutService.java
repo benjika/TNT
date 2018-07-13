@@ -32,7 +32,7 @@ public class WorkOutService extends IntentService {
            /* Notification.Builder builder = new Notification.Builder(this,CHANNEL_ID)
                     .setSmallIcon(R.drawable.notificon)
                     .setContentTitle("Today is Work Out Day")
-                    .build();*/
+                    .build();
         }
     }
 

@@ -21,12 +21,6 @@
             android:background="?attr/colorPrimary"
             android:id="@+id/afterLoginToolBar"
             />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/Fragment_container_afterlogin"/>
-
     </LinearLayout>
 
 
@@ -34,6 +28,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity = "start"
-        app:menu="@menu/drawer_menutrainee"
         android:id="@+id/Nav_afterlogin"/>
+
+    <FrameLayout
+        android:id="@+id/Fragment_container_afterlogin"
+        android:layout_marginTop="57dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 </android.support.v4.widget.DrawerLayout>

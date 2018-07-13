@@ -31,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
-        ActionBar actionBar = getSupportActionBar();
-=======
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
->>>>>>> origin/master
         actionBar.setDisplayHomeAsUpEnabled(true);//setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 

@@ -2,6 +2,9 @@ package com.example.luput.tnt;
 
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -20,17 +23,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
-import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.content.ContentValues.TAG;
+import br.com.joinersa.oooalertdialog.Animation;
+import br.com.joinersa.oooalertdialog.OoOAlertDialog;
+
+
 
 
 /**
@@ -47,7 +44,7 @@ public class SignupFragment extends Fragment {
     private RadioGroup radioTrainerOrTrainee;
     private FirebaseAuth mAuth;
     private DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
-    private FirebaseAuth.AuthStateListener AuthListenerl;
+    Utils utils = new Utils();
 
     @Override
     public void onStart() {
@@ -102,6 +99,12 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(checkFields()){
+                    final ProgressDialog dialog = new ProgressDialog(getActivity()); // this = YourActivity
+                    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    dialog.setMessage("Loading. Please wait...");
+                    dialog.setIndeterminate(true);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
                     final String UserName = Email.getText().toString();
                     String password = Password.getText().toString();
                     mAuth.createUserWithEmailAndPassword(UserName,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -109,51 +112,74 @@ public class SignupFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 String UserID = mAuth.getCurrentUser().getUid();
-                                //Log.d("CK", UserID);
                                 if(isCoach){
-                                    DB.child("coach").child(UserID).setValue(UserID);
+                                    DB.child(utils.COACH_BRANCH).child(UserID).setValue(UserID);
                                     Coach coach = new Coach(etFirstName.getText().toString(),etLastName.getText().toString(),UserName);
-                                    DB.child("coach").child(UserID).setValue(coach);
+                                    DB.child(utils.COACH_BRANCH).child(UserID).setValue(coach);
+                                    Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                    intent.putExtra("isCoach", true);
+                                    dialog.cancel();
+                                    startActivity(intent);
+                                    getActivity().finish();
+
                                 }
                                 else {
-                                    DB.child("trainee").child(UserID).setValue(UserID);
+                                    DB.child(utils.TRAINEE_BRANCH).child(UserID).setValue(UserID);
                                     Trainee trainee = new Trainee(etFirstName.getText().toString(),etLastName.getText().toString(),UserName);
-                                    DB.child("trainee").child(UserID).setValue(trainee);
+                                    DB.child(utils.TRAINEE_BRANCH).child(UserID).setValue(trainee);
+                                    Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                    intent.putExtra("isCoach", false);
+                                    dialog.cancel();
+                                    startActivity(intent);
+                                    getActivity().finish();
                                 }
                             }
                             else{
-                                //popup
+                                utils.makeSimplePopup("Oops","Something happend plz try again",getActivity());
+                                dialog.cancel();
                             }
                         }
                     });
 
                 }
+                else{
+                    utils.makeSimplePopup("Error in input","Please make sure you fill all the input fields",getActivity());
+                }
             }
         });
-
-
-
-
-
         return view;
     }
 
     private boolean checkFields() {
         boolean isValid = true;
 
-        //Check first name
         String FirstName = etFirstName.getText().toString();
         FirstName.trim();
-        if (FirstName.equals("")) isValid=false;
-        if (isEnglishOrHebrew(FirstName)) etFirstName.setText(FirstName);
-        else isValid = false;
+        if (FirstName.equals("")) {
+            isValid = false;
+        }
+        if (isEnglishOrHebrew(FirstName)){
+            etFirstName.setText(FirstName);
+        }
+        else{
+            isValid = false;
+        }
 
-        //Check last name
         String LastName = etLastName.getText().toString();
         LastName.trim();
-        if (LastName.equals("")) isValid=false;
-        if (isEnglishOrHebrew(LastName)) etLastName.setText(LastName);
-        else isValid=false;
+        if (LastName.equals("")) {
+            isValid = false;
+        }
+        if (isEnglishOrHebrew(LastName)) {
+            etLastName.setText(LastName);
+        }
+        else {
+            isValid = false;
+        }
+
+        if(radioTrainerOrTrainee.getCheckedRadioButtonId() == -1){
+            isValid = false;
+        }
 
         return isValid;
       }
@@ -176,35 +202,6 @@ public class SignupFragment extends Fragment {
         }
         return false;
     }
-/*
-    private static boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(inDate.trim());
-        } catch (ParseException pe) {
-            return false;
-        }
-        return true;
-    }*/
-    /*
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        File image = File.createTempFile(
-                imageFileName,  // prefix
-                ".jpg",         // suffix
-                storageDir      // directory
-        );
-       /* File image;
-        image = File.createTempFile(imageFileName, ".jpg",  getActivity().getApplicationContext().getCacheDir());
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-*/
 }
