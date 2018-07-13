@@ -37,6 +37,11 @@ public class TraineeFragment extends Fragment {
     public TraineeFragment() {
     }
 
+<<<<<<< HEAD
+=======
+    static View view;
+
+>>>>>>> origin/master
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -48,8 +53,13 @@ public class TraineeFragment extends Fragment {
         }
 
         view = inflater.inflate(R.layout.fragment_trainee, container, false);
+<<<<<<< HEAD
 
         Training_programs = (RecyclerView) view.findViewById(R.id.training_program_recyclerView);
+=======
+        Training_programs = (RecyclerView) view.findViewById(R.id.training_program_recyclerView);
+        final List<TrainingProgram> programs;
+>>>>>>> origin/master
         //mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         UserID = user.getUid();
@@ -63,16 +73,31 @@ public class TraineeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot trainee : dataSnapshot.getChildren()) {
+<<<<<<< HEAD
                     if (trainee.getKey().toString().equals(UserID)) {
+=======
+                    if (trainee.getValue().toString().equals(UserID)) {
+>>>>>>> origin/master
                         Current_Trainee = trainee.getValue(Trainee.class);
                         break;
                     }
                 }
+<<<<<<< HEAD
 
                 if(Current_Trainee.getPrograms() != null) {
                     programs = fillProgram(Current_Trainee.getPrograms());
 
                     final ProgramAdapter programAdapter = new ProgramAdapter(programs);
+=======
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        programs = fillProgram(Current_Trainee.getPrograms());
+>>>>>>> origin/master
 
                     programAdapter.setListener(new ProgramAdapter.MyProgramListener() {
                         @Override
@@ -93,7 +118,19 @@ public class TraineeFragment extends Fragment {
             }
 
             @Override
+<<<<<<< HEAD
             public void onCancelled(DatabaseError databaseError) {
+=======
+            public void onProgramClick(int position, View view) {
+                TrainingProgram ClickedProgram = programs.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ProgramToShow", ClickedProgram);
+                FullProgramFragment fullProgramFragment = new FullProgramFragment();
+                fullProgramFragment.setArguments(bundle);
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.add(view.getId(), fullProgramFragment)
+                        .commit();
+>>>>>>> origin/master
             }
         });
     }
@@ -109,12 +146,19 @@ public class TraineeFragment extends Fragment {
                     returnList.add(dataSnapshot.child(CurrentProgram).getValue(TrainingProgram.class));
                 }
             }
+<<<<<<< HEAD
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
 
 
+=======
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+>>>>>>> origin/master
         });
 
         return returnList;

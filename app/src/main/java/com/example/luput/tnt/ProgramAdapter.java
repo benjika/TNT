@@ -10,6 +10,11 @@ import android.widget.TextView;
 import java.util.List;
 
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramViewHolder>{
+
+    MyProgramListener Listener;
+    List<TrainingProgram> Programs;
+
+
     @Override
     public ProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_program_cell,parent,false);
@@ -29,13 +34,11 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramV
         return Programs.size();
     }
 
-    List<TrainingProgram> Programs;
 
     interface MyProgramListener{
         void onProgramClick(int position, View view);
     }
 
-    MyProgramListener Listener;
 
     public void setListener(MyProgramListener listener) {
         Listener = listener;

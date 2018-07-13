@@ -27,10 +27,15 @@ public class LoginFragment extends Fragment {
     TextInputEditText UserName;
     TextInputEditText Password;
     Button LoginBTN;
+<<<<<<< HEAD
     String Email;
     String password;
 
 
+=======
+    String password;
+    String Email;
+>>>>>>> origin/master
 
     private FragmentManager fragmentManager;
 
@@ -62,13 +67,18 @@ public class LoginFragment extends Fragment {
 
 
     @Override
+<<<<<<< HEAD
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+=======
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+>>>>>>> origin/master
         final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         UserName = view.findViewById(R.id.Login_email);
         Password = view.findViewById(R.id.Login_password);
         LoginBTN = view.findViewById(R.id.btn_sign_in);
 
+<<<<<<< HEAD
 
 
         LoginBTN.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +87,21 @@ public class LoginFragment extends Fragment {
                 Email = UserName.getText().toString();
                 password = Password.getText().toString();
                 final int temp = view1.getId();
+=======
+        Email = UserName.getText().toString();
+        password = Password.getText().toString();
+
+        LoginBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+>>>>>>> origin/master
                 mAuth.signInWithEmailAndPassword(Email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             String userUID = mAuth.getCurrentUser().getUid();
                             if (DBref.child("trainee").child(userUID).getKey().isEmpty()) {
+<<<<<<< HEAD
                                 Intent intent = new Intent(getActivity(),afterLoginActiviry.class);
                                 intent.putExtra("isCoach",true);
                                 startActivity(intent);
@@ -90,14 +109,31 @@ public class LoginFragment extends Fragment {
                                 Intent intent = new Intent(getActivity(),afterLoginActiviry.class);
                                 intent.putExtra("isCoach",false);
                                 startActivity(intent);
+=======
+                                //move to coach
+                            } else {
+                                //move to traineefragment
+                                TraineeFragment fragment = new TraineeFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                                fragmentTransaction.add(view.getId(), fragment);
+                                fragmentTransaction.commit();
+>>>>>>> origin/master
                             }
                         } else {
                             //make popup
                         }
                     }
                 });
+<<<<<<< HEAD
             }
         });
+=======
+
+            }
+        });
+
+
+>>>>>>> origin/master
         return view;
     }
 }

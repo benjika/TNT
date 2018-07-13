@@ -77,8 +77,8 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorPrimary"
                         android:layout_gravity="center"
+                        android:textColorHint="@color/colorPrimary"
                         android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                         <android.support.design.widget.TextInputEditText
@@ -152,10 +152,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
                         android:hint="@string/password"
-                        android:inputType="phone"
+                        android:inputType="textPassword"
                         android:textColorHint="@color/colorPrimary" />
                 </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/signup_submit"
