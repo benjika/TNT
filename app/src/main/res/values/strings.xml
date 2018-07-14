@@ -78,6 +78,8 @@
     <string name="add_trainee">Add trainee</string>
     <string name="use_emaii">Use email address</string>
     <string name="use_phone_number">Use phone number</string>
+    <string name="input_email">Input Email</string>
+    <string name="add_email_of_new_trainee">Email of the new trainee</string>
 
 
 </resources>
