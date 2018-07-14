@@ -4,11 +4,18 @@
     <item
         android:title="Trainees"
         android:id="@+id/ShowTrainees"
+        android:icon="@drawable/run"
         />
 
     <item
+        android:title="@string/settings"
+        android:id="@+id/Coach_setting"
+        android:icon="@drawable/ic_settings"/>
+
+    <item
         android:id="@+id/Logout_coach"
-        android:title="LogOut"/>
+        android:title="LogOut"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"/>
 
     <item
         android:title="@string/about"

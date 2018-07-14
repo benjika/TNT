@@ -28,7 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity = "start"
-        android:id="@+id/Nav_afterlogin"/>
+        android:id="@+id/Nav_afterlogin"
+        app:headerLayout="@layout/header_layout"/>
 
     <FrameLayout
         android:id="@+id/Fragment_container_afterlogin"

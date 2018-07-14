@@ -76,10 +76,7 @@ public class LoginFragment extends Fragment {
                 forgotPasswordDialog(view);
             }
         });
-
-
-
-
+        //region Login Logic
         LoginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -101,12 +98,14 @@ public class LoginFragment extends Fragment {
                                     if (DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).exists()) {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", false);
+                                        intent.putExtra("Name",DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).getValue(Trainee.class).getFirstName());
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", true);
+                                        intent.putExtra("Name",DBforlogin.child(utils.COACH_BRANCH).child(userUID).getValue(Coach.class).getFirstName());
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
@@ -128,6 +127,7 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+        //endregion
         return view;
     }
 

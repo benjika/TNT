@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ public class afterLoginActiviry extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     boolean isCoach;
+    String firstName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class afterLoginActiviry extends AppCompatActivity {
         setContentView(R.layout.activity_afterlogin);
 
         isCoach = getIntent().getBooleanExtra("isCoach",false);
+        firstName = getIntent().getStringExtra("Name");
 
         //region toolbar + nav init
         Toolbar toolbar = findViewById(R.id.afterLoginToolBar);
@@ -38,6 +41,9 @@ public class afterLoginActiviry extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout_aftesignin);
         NavigationView navigationView = findViewById(R.id.Nav_afterlogin);
+        TextView UserNameTV = navigationView.getHeaderView(0).findViewById(R.id.User_Name_After_Login);
+        UserNameTV.setText("Hello " + firstName);
+
         if(isCoach){
             navigationView.inflateMenu(R.menu.drawer_menucoach);
             navigationView.bringToFront();
