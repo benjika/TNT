@@ -2,10 +2,13 @@ package com.example.luput.tnt;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +37,7 @@ import java.util.List;
 import static java.util.Collections.*;
 import static java.util.Collections.sort;
 
-public class CoachFragment extends Fragment {
+public class CoachFragment extends Fragment implements View.OnClickListener {
 
     private static String TAG = "CoachFaragment";
     ArrayList<Trainee> traineeList = new ArrayList<>();
@@ -41,10 +45,15 @@ public class CoachFragment extends Fragment {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     String UserID;
-    FloatingActionButton floatingActionButton;
+    //FloatingActionButton floatingActionButton;
     Dialog addTraineeDialog;
     String key;
     TextView nothigToShow;
+    Context context;
+
+    com.github.clans.fab.FloatingActionMenu floatingActionMenu;
+    com.github.clans.fab.FloatingActionButton floatingActionButton_mobile;
+    com.github.clans.fab.FloatingActionButton floatingActionButton_email;
 
     public CoachFragment() {
         // Required empty public constructor
@@ -62,15 +71,19 @@ public class CoachFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coach, container, false);
+        context = container.getContext();
         UserID = firebaseUser.getUid();
-        traineeList = traineesOfThisCoach(container,view);
-        floatingActionButton = view.findViewById(R.id.coach_addTrainee);
-
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        traineeList = traineesOfThisCoach(container, view);
+        floatingActionMenu = view.findViewById(R.id.menu);
+        floatingActionMenu.getMenuIconView().setColorFilter(Color.WHITE);
+        floatingActionButton_email = view.findViewById(R.id.coach_menu_item_email);
+        floatingActionButton_mobile = view.findViewById(R.id.coach_menu_item_mobile);
+        floatingActionButton_email.setOnClickListener(this);
+        floatingActionButton_mobile.setOnClickListener(this);
+        floatingActionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addTraineeDialog();
+                // addTraineeDialog();
             }
         });
 
@@ -80,8 +93,7 @@ public class CoachFragment extends Fragment {
             recyclerView.setVisibility(View.GONE);
             nothigToShow = view.findViewById(R.id.coach_nothingToShow);
             nothigToShow.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             //region temp
             /*
             RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.coach_recyclerView);
@@ -115,7 +127,6 @@ public class CoachFragment extends Fragment {
     }
 
 
-
     public void addTraineeDialog() {
         addTraineeDialog = new Dialog(getView().getContext());
         addTraineeDialog.setContentView(R.layout.add_trainee_dialog);
@@ -141,7 +152,7 @@ public class CoachFragment extends Fragment {
                                 break;
                             }
                         }
-                        if(key != null) {
+                        if (key != null) {
                             Coach coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
                             if (coach.getTrainees() != null) {
                                 ArrayList<String> newlist = new ArrayList<String>(coach.getTrainees());
@@ -155,6 +166,7 @@ public class CoachFragment extends Fragment {
                             mDatabase.child("coach").child(UserID).setValue(coach);
                         }
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -178,8 +190,8 @@ public class CoachFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Coach coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
-                if(coach.getTrainees()!=null) {
-                    if(!coach.getTrainees().isEmpty()) {
+                if (coach.getTrainees() != null) {
+                    if (!coach.getTrainees().isEmpty()) {
                         List<String> listOfTraineesUID = new ArrayList<String>();
                         listOfTraineesUID = coach.getTrainees();
                         for (String Uid : listOfTraineesUID) {
@@ -187,7 +199,7 @@ public class CoachFragment extends Fragment {
                             listToReturn.add(traineeToAdd);
                         }
 
-                        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.coach_recyclerView);
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coach_recyclerView);
                         CoachAdapter coachAdapter = new CoachAdapter(container.getContext(), traineeList);
                         recyclerView.setAdapter(coachAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
@@ -232,4 +244,22 @@ public class CoachFragment extends Fragment {
     public void editTrainee(String email) {
 
     }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.coach_menu_item_email:
+                Toast.makeText(context, "added by email", Toast.LENGTH_SHORT).show();
+                floatingActionMenu.close(true);
+                break;
+            case R.id.coach_menu_item_mobile:
+                Toast.makeText(context, "added by phone number", Toast.LENGTH_SHORT).show();
+                floatingActionMenu.close(true);
+                break;
+        }
+
+
+    }
+
 }

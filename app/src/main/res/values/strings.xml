@@ -75,4 +75,9 @@
     <string name="rest">Rest:</string>
     <string name="Link_to_drill">Link To Movie</string>
 
+    <string name="add_trainee">Add trainee</string>
+    <string name="use_emaii">Use email address</string>
+    <string name="use_phone_number">Use phone number</string>
+
+
 </resources>
