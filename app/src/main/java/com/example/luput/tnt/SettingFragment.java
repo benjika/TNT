@@ -1,10 +1,12 @@
 package com.example.luput.tnt;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,10 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
@@ -34,7 +43,13 @@ public class SettingFragment extends Fragment {
     String NewPassword;
     String CurrentUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
+    DataSnapshot DbToChange;
     private Uri filePath;
+    ProgressDialog dialog;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    Utils utils = new Utils();
+    StorageReference storageRef =storage.getReference(utils.IMG_BRANCH);
+    Bitmap bitmap;
     private final int PICK_IMAGE_REQUEST = 71;
 
 
@@ -49,6 +64,13 @@ public class SettingFragment extends Fragment {
         PhoneEditText = view.findViewById(R.id.Setting_New_Phone);
         PasswordEditText = view.findViewById(R.id.Setting_New_Password);
         ProfilePicImg = view.findViewById(R.id.Setting_profile_pic);
+        dialog = new ProgressDialog(getActivity());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Fetching Data Please Wait");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        detDB();
 
         ProfilePicImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +95,34 @@ public class SettingFragment extends Fragment {
 
     }
 
-    private void UpdateInfo() {
+    private void detDB() {
+        DB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(utils.TRAINEE_BRANCH).child(CurrentUID).exists()){ // trainee
 
+                }
+                else{ // coach
+
+                }
+                dialog.cancel();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void UpdateInfo() {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+        byte [] bytes = stream.toByteArray();
+
+        String path = utils.IMG_BRANCH + CurrentUID+".png";
+
+        
     }
 
     private boolean checkInput() {
@@ -107,7 +155,7 @@ public class SettingFragment extends Fragment {
         {
             filePath = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
                 ProfilePicImg.setImageBitmap(bitmap);
             }
             catch (IOException e)
