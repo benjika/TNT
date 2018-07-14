@@ -64,6 +64,7 @@
         <item>Man</item>
         <item>Woman</item>
     </string-array>
+    <string name="nothing_to_show">Nothing To Show</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -73,5 +74,10 @@
     <string name="weight">Weight:</string>
     <string name="rest">Rest:</string>
     <string name="Link_to_drill">Link To Movie</string>
+
+    <string name="add_trainee">Add trainee</string>
+    <string name="use_emaii">Use email address</string>
+    <string name="use_phone_number">Use phone number</string>
+
 
 </resources>
