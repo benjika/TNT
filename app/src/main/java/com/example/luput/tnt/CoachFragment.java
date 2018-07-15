@@ -45,6 +45,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
     String key;
     TextView nothigToShow;
     Context context;
+    private CoachAdapter coachAdapter;
 
     com.github.clans.fab.FloatingActionMenu floatingActionMenu;
     com.github.clans.fab.FloatingActionButton floatingActionButton_mobile;
@@ -138,7 +139,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                         }
 
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coach_recyclerView);
-                        CoachAdapter coachAdapter = new CoachAdapter(container.getContext(), traineeList);
+                        coachAdapter = new CoachAdapter(container.getContext(), traineeList);
                         recyclerView.setAdapter(coachAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
                         recyclerView.setVisibility(View.VISIBLE);
@@ -147,16 +148,16 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                         coachAdapter.setOnItemClickListener(new CoachAdapter.MyClickListener() {
                             @Override
                             public void onItemClick(int position, View v) {
-                                String email = traineeList.get(position).getEmailAddress();
+                                CoachEditProgramFragment coachEditProgramFragment = new CoachEditProgramFragment();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 Bundle bundle = new Bundle();
-
-                                for (Trainee trainee : traineeList) {
+                                bundle.putSerializable("Trainee", traineeList.get(position));
+                                /*for (Trainee trainee : traineeList) {
                                     if (trainee.getEmailAddress().equals(email)) {
                                         bundle.putSerializable("Trainee", trainee);
                                     }
-                                }
-                                CoachEditProgramFragment coachEditProgramFragment = CoachEditProgramFragment.newInstance();
+                                }*/
+                                coachEditProgramFragment.setArguments(bundle);
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(container.getId(), coachEditProgramFragment);
                                 fragmentTransaction.commit();

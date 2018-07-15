@@ -49,7 +49,8 @@ public class CoachEditProgramFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_coach_edit_program, container, false);
         Trainee trainee = (Trainee) getArguments().getSerializable("Trainee");
         programs = trainee.getPrograms();
-        if (programs.size() == 0) {
+
+        if (programs == null || programs.size() == 0) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coachEdit_recycleView);
             recyclerView.setVisibility(View.GONE);
             TextView nothigToShow = (TextView) view.findViewById(R.id.coachEdit_nothingToShow);
