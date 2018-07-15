@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/dialogTitle"
+        android:id="@+id/coach_dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_email_of_new_trainee"
@@ -19,5 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:inputType="textEmailAddress"
         android:hint="@string/input_email" />
 </LinearLayout>
