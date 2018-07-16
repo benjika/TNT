@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class Trainee implements Comparable,Serializable{
+<<<<<<< HEAD
 
 
     private List<TrainingProgram> Programs;
@@ -19,6 +20,14 @@ public class Trainee implements Comparable,Serializable{
     private String ImgUri;
     private String PhoneNumber;
 
+=======
+
+
+    private List<TrainingProgram> Programs;
+    private String FirstName;
+    private String LastName;
+    private String Email;
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
     public Trainee() {
     }
@@ -30,7 +39,10 @@ public class Trainee implements Comparable,Serializable{
         Programs = new ArrayList<TrainingProgram>();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     public List<TrainingProgram> getPrograms() {
         return Programs;
     }
@@ -66,6 +78,7 @@ public class Trainee implements Comparable,Serializable{
     public String getEmailAddress(){
         return Email;
     }
+<<<<<<< HEAD
 
     public String getImgUri() {
         return ImgUri;
@@ -82,6 +95,8 @@ public class Trainee implements Comparable,Serializable{
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
     public static Comparator<Trainee> StuNameComparator = new Comparator<Trainee>() {
         public int compare(Trainee s1, Trainee s2) {

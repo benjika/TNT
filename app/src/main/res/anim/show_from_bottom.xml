@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="300"
     android:fromYDelta="30%p"
     android:interpolator="@android:interpolator/accelerate_cubic"
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="300"
+    android:fromYDelta="30%p"
+    android:interpolator="@android:interpolator/accelerate_cubic"
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     android:toYDelta="0" />

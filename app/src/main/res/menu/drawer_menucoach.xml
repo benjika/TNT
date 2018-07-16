@@ -4,6 +4,7 @@
     <item
         android:title="Trainees"
         android:id="@+id/ShowTrainees"
+<<<<<<< HEAD
         android:icon="@drawable/run"
         />
 
@@ -16,6 +17,13 @@
         android:id="@+id/Logout_coach"
         android:title="LogOut"
         android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+=======
+        />
+
+    <item
+        android:id="@+id/Logout_coach"
+        android:title="LogOut"/>
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
     <item
         android:title="@string/about"

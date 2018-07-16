@@ -29,12 +29,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v4:26.1.0'
+<<<<<<< HEAD
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.github.clans:fab:1.6.4' //floating action button
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.github.Joinersa:OoOAlertDialog:1.0.3'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+=======
+    implementation 'com.google.firebase:firebase-auth:9.4.0'
+    implementation 'com.github.clans:fab:1.6.4' //floating action button
+    implementation 'com.google.firebase:firebase-database:9.4.0'
+    implementation 'com.github.Joinersa:OoOAlertDialog:1.0.3'
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

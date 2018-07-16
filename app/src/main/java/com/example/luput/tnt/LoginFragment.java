@@ -101,14 +101,20 @@ public class LoginFragment extends Fragment {
                                     if (DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).exists()) {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", false);
+<<<<<<< HEAD
                                         intent.putExtra("Name",DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).getValue(Trainee.class).getFirstName());
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", true);
+<<<<<<< HEAD
                                         intent.putExtra("Name",DBforlogin.child(utils.COACH_BRANCH).child(userUID).getValue(Coach.class).getFirstName());
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();

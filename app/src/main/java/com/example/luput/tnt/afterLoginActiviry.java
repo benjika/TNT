@@ -12,7 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+<<<<<<< HEAD
 import android.widget.TextView;
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +24,10 @@ public class afterLoginActiviry extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     boolean isCoach;
+<<<<<<< HEAD
     String firstName;
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +35,10 @@ public class afterLoginActiviry extends AppCompatActivity {
         setContentView(R.layout.activity_afterlogin);
 
         isCoach = getIntent().getBooleanExtra("isCoach",false);
+<<<<<<< HEAD
         firstName = getIntent().getStringExtra("Name");
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
         //region toolbar + nav init
         Toolbar toolbar = findViewById(R.id.afterLoginToolBar);
@@ -41,9 +50,12 @@ public class afterLoginActiviry extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout_aftesignin);
         NavigationView navigationView = findViewById(R.id.Nav_afterlogin);
+<<<<<<< HEAD
         TextView UserNameTV = navigationView.getHeaderView(0).findViewById(R.id.User_Name_After_Login);
         UserNameTV.setText("Hello " + firstName);
 
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
         if(isCoach){
             navigationView.inflateMenu(R.menu.drawer_menucoach);
             navigationView.bringToFront();
@@ -97,6 +109,7 @@ public class afterLoginActiviry extends AppCompatActivity {
 
     private void drawerChoose(int clickedID){
         switch (clickedID){
+<<<<<<< HEAD
             case R.id.Coach_setting:
                 SettingFragment settingFragment = new SettingFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -111,6 +124,8 @@ public class afterLoginActiviry extends AppCompatActivity {
                         .addToBackStack("this")
                         .commit();
                 break;
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
             case R.id.Logout_coach:
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(afterLoginActiviry.this,MainActivity.class);

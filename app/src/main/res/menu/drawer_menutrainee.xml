@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+<<<<<<< HEAD
         android:title="@string/settings"
         android:id="@+id/Trainee_setting"
         android:icon="@drawable/ic_settings"/>
@@ -10,6 +11,10 @@
         android:id="@+id/Logout_trainee"
         android:title="Logout"
         android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+=======
+        android:id="@+id/Logout_trainee"
+        android:title="Logout"/>
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
 
     <item
         android:id="@+id/AboutTrainee"

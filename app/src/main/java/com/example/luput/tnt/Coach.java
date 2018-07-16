@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Coach {
+<<<<<<< HEAD
 
 
     private List<String> trainees;
@@ -26,12 +27,29 @@ public class Coach {
         LastName = lastName;
         Email = email;
 
+=======
+
+
+    private List<String> trainees;
+    private String FirstName;
+    private String LastName;
+    private String Email;
+
+    public Coach(String firstName, String lastName, String email) {
+        this.trainees = new ArrayList<String>();
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     }
 
     public Coach() {
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     public void setTrainees(List<String> trainees) {
         this.trainees = trainees;
     }

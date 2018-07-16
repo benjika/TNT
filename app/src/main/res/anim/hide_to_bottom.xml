@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:interpolator/accelerate_quint"
     android:fromYDelta="0"
     android:toYDelta="30%p"
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/accelerate_quint"
+    android:fromYDelta="0"
+    android:toYDelta="30%p"
+>>>>>>> bef046bccefc588df21098259ab5ed2029ec6ac2
     android:duration="200" />
