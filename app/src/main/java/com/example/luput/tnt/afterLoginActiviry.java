@@ -97,6 +97,20 @@ public class afterLoginActiviry extends AppCompatActivity {
 
     private void drawerChoose(int clickedID){
         switch (clickedID){
+            case R.id.Coach_setting:
+                SettingFragment settingFragment = new SettingFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Fragment_container_afterlogin,settingFragment)
+                        .addToBackStack("this")
+                        .commit();
+                break;
+            case R.id.Trainee_setting:
+                SettingFragment settingFragment1 = new SettingFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Fragment_container_afterlogin,settingFragment1)
+                        .addToBackStack("this")
+                        .commit();
+                break;
             case R.id.Logout_coach:
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(afterLoginActiviry.this,MainActivity.class);

@@ -16,6 +16,9 @@ public class Trainee implements Comparable,Serializable{
     private String FirstName;
     private String LastName;
     private String Email;
+    private String ImgUri;
+    private String PhoneNumber;
+
 
     public Trainee() {
     }
@@ -26,6 +29,7 @@ public class Trainee implements Comparable,Serializable{
         Email = emailAddress;
         Programs = new ArrayList<TrainingProgram>();
     }
+
 
     public List<TrainingProgram> getPrograms() {
         return Programs;
@@ -61,6 +65,22 @@ public class Trainee implements Comparable,Serializable{
 
     public String getEmailAddress(){
         return Email;
+    }
+
+    public String getImgUri() {
+        return ImgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        ImgUri = imgUri;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 
     public static Comparator<Trainee> StuNameComparator = new Comparator<Trainee>() {

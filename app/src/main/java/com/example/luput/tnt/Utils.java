@@ -10,7 +10,7 @@ public class Utils {
     public final String TRAINEE_BRANCH = "trainee";
     public final String COACH_BRANCH = "coach";
     public final String PROGRAM_BRANCH = "programs";
-    public final String IMG_BRANCH = "img/";
+    public final String IMG_BRANCH = "img";
 
     public void makeSimplePopup(String HeadLine, String Content, Activity activity){
         new OoOAlertDialog.Builder(activity)

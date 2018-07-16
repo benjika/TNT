@@ -106,7 +106,7 @@ public class SignupFragment extends Fragment {
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.show();
                     final String UserName = Email.getText().toString();
-                    String password = Password.getText().toString();
+                    final String password = Password.getText().toString();
                     mAuth.createUserWithEmailAndPassword(UserName,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
