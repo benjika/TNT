@@ -42,9 +42,21 @@ public class SignupFragment extends Fragment {
     private EditText Password;
     private Button btnSignUp;
     private RadioGroup radioTrainerOrTrainee;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth;
     private DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
     Utils utils = new Utils();
+
+    @Override
+    public void onStart() {
+        //mAuth.addAuthStateListener(AuthListenerl);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        //mAuth.removeAuthStateListener(AuthListenerl);
+        super.onStop();
+    }
 
     public SignupFragment() {
         // Required empty public constructor
@@ -61,12 +73,15 @@ public class SignupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
-        radioTrainerOrTrainee = view.findViewById(R.id.radio_trainerOrTrainee);
-        etFirstName = view.findViewById(R.id.signup_firstName);
-        etLastName = view.findViewById(R.id.signup_lastName);
+        // Inflate the layout for this fragment
+
+        radioTrainerOrTrainee = (RadioGroup) view.findViewById(R.id.radio_trainerOrTrainee);
+        etFirstName = (EditText) view.findViewById(R.id.signup_firstName);
+        etLastName = (EditText) view.findViewById(R.id.signup_lastName);
         Email = view.findViewById(R.id.signup_email);
         Password = view.findViewById(R.id.signup_password);
-        btnSignUp =  view.findViewById(R.id.signup_submit);
+        btnSignUp = (Button) view.findViewById(R.id.signup_submit);
+        mAuth = FirebaseAuth.getInstance();
 
         radioTrainerOrTrainee.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -79,8 +94,6 @@ public class SignupFragment extends Fragment {
                 }
             }
         });
-
-        //region SignUp Logic
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,9 +147,6 @@ public class SignupFragment extends Fragment {
                 }
             }
         });
-
-        //endregion
-
         return view;
     }
 

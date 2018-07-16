@@ -122,7 +122,7 @@ public class SettingFragment extends Fragment {
 
         String path = utils.IMG_BRANCH + CurrentUID+".png";
 
-        
+
     }
 
     private boolean checkInput() {

@@ -75,4 +75,14 @@
     <string name="rest">Rest:</string>
     <string name="Link_to_drill">Link To Movie</string>
 
+    <string name="add_trainee">Add trainee</string>
+    <string name="use_emaii">Use email address</string>
+    <string name="use_phone_number">Use phone number</string>
+    <string name="input_email">Input Email</string>
+    <string name="input_phone">Input phone number</string>
+    <string name="add_email_of_new_trainee">Email of the new trainee</string>
+    <string name="add_phone_of_new_trainee">Phone num. of the new trainee</string>
+    <string name="add">Add</string>
+
+
 </resources>

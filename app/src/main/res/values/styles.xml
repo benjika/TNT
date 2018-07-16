@@ -22,5 +22,12 @@
         <item name="colorControlHighlight">@color/divider</item>
     </style>
 
+    <style name="MenuButtonsSmallGreen">
+        <item name="fab_size">mini</item>
+        <item name="fab_colorNormal">@color/colorAccent</item>
+        <item name="fab_colorPressed">@color/colorPrimaryDark</item>
+        <item name="fab_colorRipple">@color/icons</item>
+    </style>
+
 
 </resources>

@@ -76,7 +76,10 @@ public class LoginFragment extends Fragment {
                 forgotPasswordDialog(view);
             }
         });
-        //region Login Logic
+
+
+
+
         LoginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -127,7 +130,6 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
-        //endregion
         return view;
     }
 
