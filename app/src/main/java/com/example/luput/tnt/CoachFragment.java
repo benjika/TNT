@@ -160,6 +160,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                                 coachEditProgramFragment.setArguments(bundle);
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(container.getId(), coachEditProgramFragment);
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                             }
                         });

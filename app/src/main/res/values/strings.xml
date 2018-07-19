@@ -85,4 +85,24 @@
     <string name="add">Add</string>
 
 
+    <!--edit program fragment-->
+    <string name="addNewProgram">Add new program</string>
+    <string name="addFromBank">Add new program</string>
+    <string name="createNewProgram">Create new program</string>
+
+
+    <!--new drill dialog -->
+    <string name="chooseMuscleGroup">Choose muscle group</string>
+
+    <string-array name="muscle_groups">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Biceps</item>
+        <item>Triceps</item>
+        <item>Legs</item>
+        <item>Shoulders</item>
+        <item>ABs</item>
+        <!-- <item>Aerobic</item>  -->
+    </string-array>
+
 </resources>
