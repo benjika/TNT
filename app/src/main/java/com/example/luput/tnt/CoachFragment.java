@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +38,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
 
     private static String TAG = "CoachFaragment";
     ArrayList<Trainee> traineeList = new ArrayList<>();
+    List<String> listOfTraineesUID = new ArrayList<>();
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -47,9 +50,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
     Context context;
     private CoachAdapter coachAdapter;
 
-    com.github.clans.fab.FloatingActionMenu floatingActionMenu;
-    com.github.clans.fab.FloatingActionButton floatingActionButton_mobile;
-    com.github.clans.fab.FloatingActionButton floatingActionButton_email;
+    private FloatingActionMenu floatingActionMenu;
 
     public CoachFragment() {
         // Required empty public constructor
@@ -72,8 +73,8 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
         traineeList = traineesOfThisCoach(container, view);
         floatingActionMenu = view.findViewById(R.id.menu);
         floatingActionMenu.getMenuIconView().setColorFilter(Color.WHITE);
-        floatingActionButton_email = view.findViewById(R.id.coach_menu_item_email);
-        floatingActionButton_mobile = view.findViewById(R.id.coach_menu_item_mobile);
+        FloatingActionButton floatingActionButton_email = view.findViewById(R.id.coach_menu_item_email);
+        FloatingActionButton floatingActionButton_mobile = view.findViewById(R.id.coach_menu_item_mobile);
         floatingActionButton_email.setOnClickListener(this);
         floatingActionButton_mobile.setOnClickListener(this);
         floatingActionMenu.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +132,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                 Coach coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
                 if (coach.getTrainees() != null) {
                     if (!coach.getTrainees().isEmpty()) {
-                        List<String> listOfTraineesUID = new ArrayList<String>();
+                        //  List<String> listOfTraineesUID = new ArrayList<String>();
                         listOfTraineesUID = coach.getTrainees();
                         for (String Uid : listOfTraineesUID) {
                             Trainee traineeToAdd = dataSnapshot.child("trainee").child(Uid).getValue(Trainee.class);
@@ -152,11 +153,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                                 FragmentManager fragmentManager = getFragmentManager();
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("Trainee", traineeList.get(position));
-                                /*for (Trainee trainee : traineeList) {
-                                    if (trainee.getEmailAddress().equals(email)) {
-                                        bundle.putSerializable("Trainee", trainee);
-                                    }
-                                }*/
+                                bundle.putString("TraineeUid", listOfTraineesUID.get(position));
                                 coachEditProgramFragment.setArguments(bundle);
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(container.getId(), coachEditProgramFragment);
@@ -213,7 +210,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
         final TextInputEditText addtraineeET = (TextInputEditText) mView.findViewById(R.id.coach_add_trainee_email);
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
                         final String emailToAdd = addtraineeET.getText().toString();
                         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -248,7 +245,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                         });
                     }
                 });
-        alertDialogBuilderUserInput.setNegativeButton("Cancel",
+        alertDialogBuilderUserInput.setNegativeButton(getResources().getString(R.string.cancel),
                 new DialogInterface.OnClickListener()
 
                 {

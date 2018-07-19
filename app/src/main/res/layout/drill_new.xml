@@ -26,19 +26,19 @@
                 android:layout_weight="2" />
 
             <Spinner
-                android:id="@+id/spinner1"
-                android:layout_marginStart="10dp"
+                android:id="@+id/drillNew_MuscleGroupSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:entries="@array/muscle_groups"
                 android:prompt="@string/chooseMuscleGroup" />
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/drill_name"
+        <EditText
+            android:id="@+id/drillNew_drillName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Drill Name"
@@ -60,8 +60,8 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/Number_of_sets"
+            <EditText
+                android:id="@+id/drillNew_NumberOfSets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -77,8 +77,8 @@
                 android:textSize="21sp" />
 
 
-            <TextView
-                android:id="@+id/weight_in_kg"
+            <EditText
+                android:id="@+id/drillNew_weightInKg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,8 +94,8 @@
                 android:textSize="21sp" />
 
 
-            <TextView
-                android:id="@+id/Rest_In_seconds"
+            <EditText
+                android:id="@+id/drillNew_RestInSeconds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -104,8 +104,8 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/drill_description"
+        <EditText
+            android:id="@+id/drillNew_drillDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -114,8 +114,8 @@
             android:textAlignment="center"
             android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/Link_To_Drill_Movie"
+        <EditText
+            android:id="@+id/drillNew_LinkToDrillMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
