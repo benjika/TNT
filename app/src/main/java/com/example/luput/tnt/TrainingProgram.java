@@ -31,11 +31,21 @@ public class TrainingProgram implements Serializable {
     }
 
     public ArrayList<ExerciseDrill> getListOfDrills() {
+        if (ListOfDrills == null) {
+            this.ListOfDrills = new ArrayList<>();
+        }
         return ListOfDrills;
     }
 
-    public void setListOfDrills(ArrayList<ExerciseDrill> listOfDrillsForA) {
-        this.ListOfDrills = listOfDrillsForA;
+    public void setListOfDrills(ArrayList<ExerciseDrill> listOfDrills) {
+        if (ListOfDrills == null) {
+            this.ListOfDrills = new ArrayList<>();
+        }
+        this.ListOfDrills = listOfDrills;
+    }
+
+    public void addNewDrill(ExerciseDrill exerciseDrill) {
+        ListOfDrills.add(exerciseDrill);
     }
 
     /*

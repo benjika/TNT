@@ -21,8 +21,7 @@ import java.util.List;
 public class FullProgramFragment extends Fragment {
     TextView ProgramHeadLine;
     RecyclerView TrainingProgramDrills;
-    List<ExerciseDrill> ProgramA;
-    List<ExerciseDrill> ProgramB;
+    List<ExerciseDrill> Program;
     //DatabaseReference DB = FirebaseDatabase.getInstance().getReference();
 
     @Nullable
@@ -37,8 +36,7 @@ public class FullProgramFragment extends Fragment {
 
 
         ProgramHeadLine.setText(ProgramToShow.getNameOfTheProgram());
-        ProgramA.addAll(ProgramToShow.getListOfDrillsForA());
-        ProgramA.addAll(ProgramToShow.getListOfDrillsForB());
+        Program.addAll(ProgramToShow.getListOfDrills());
 
         //region stam
         /*DB.child("drills").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -73,7 +71,7 @@ public class FullProgramFragment extends Fragment {
         }
 */
         //endregion
-        FullProgramAdapter adapter = new FullProgramAdapter(ProgramA);
+        FullProgramAdapter adapter = new FullProgramAdapter(Program);
         TrainingProgramDrills.setAdapter(adapter);
 
         return view;

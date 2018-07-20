@@ -2,7 +2,7 @@ package com.example.luput.tnt;
 
 import java.io.Serializable;
 
-public class DaysOfTrainning implements Serializable{
+public class DaysOfTrainning implements Serializable {
     private boolean Sunday;
     private boolean Monday;
     private boolean Tuesday;

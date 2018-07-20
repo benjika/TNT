@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -36,6 +39,12 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
     FloatingActionButton floatingActionButton;
     private Button daysOfProgramBTN;
     private DaysOfTrainning daysOfTrainningArr;
+    Trainee trainee;
+    String traineeId;
+    private List<TrainingProgram> programs = new ArrayList<>();
+    TrainingProgram trainingProgramToAdd;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
 
 
     public void setValOfSpinner(int valOfSpinner) {
@@ -59,7 +68,21 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
         floatingActionButton.setOnClickListener(this);
         daysOfProgramBTN = (Button) view.findViewById(R.id.createProgram_chooseDaysBTN);
         daysOfProgramBTN.setOnClickListener(this);
-        daysOfTrainningArr = new DaysOfTrainning();
+        daysOfTrainningArr = new DaysOfTrainning(false, false, false,
+                false, false, false, false);
+        trainee = (Trainee) getArguments().getSerializable("Trainee");
+        traineeId = (String) getArguments().getString("TraineeUid");
+        programs = trainee.getPrograms();
+        trainingProgramToAdd = new TrainingProgram();
+
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.createProgram_recyclerView);
+        recyclerView.setHasFixedSize(false);
+
+        adapter = new CreateProgramAdapter(trainingProgramToAdd.getListOfDrills()
+                , context);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         return view;
     }
 
@@ -76,40 +99,43 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
         CustomOnItemSelectedListenerAddProgramSpinner customOnItemSelectedListenerAddProgramSpinner
                 = new CustomOnItemSelectedListenerAddProgramSpinner();
 
-        final TextInputEditText addtraineeET = (TextInputEditText) mView.findViewById(R.id.coach_add_trainee_email);
         alertDialogBuilderUserInput
                 .setCancelable(false)
                 .setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
-                        if (valOfSpinner == -1) {
+                       /* if (valOfSpinner == -1) {
                             Toast.makeText(getContext(), "", Toast.LENGTH_LONG).show();
-                        } else {
-                            final String muscleGroup = musclesGroups[valOfSpinner];
+                        } else {*/
+                        //    final String muscleGroup = musclesGroups[valOfSpinner];
 
-                            EditText nameOfDrillET = (EditText) mView.findViewById(R.id.drillNew_drillName);
-                            final String nameOfDrillSTR = nameOfDrillET.toString();
+                        EditText nameOfDrillET = (EditText) mView.findViewById(R.id.drillNew_drillName);
+                        final String nameOfDrillSTR = nameOfDrillET.getText().toString();
 
-                            EditText numOfSetsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfSets);
-                            final int numOfSetsINT = Integer.parseInt(numOfSetsET.toString());
+                        EditText numOfSetsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfSets);
+                        final int numOfSetsINT = Integer.parseInt(numOfSetsET.getText().toString());
 
-                            EditText weightInKgET = (EditText) mView.findViewById(R.id.drillNew_weightInKg);
-                            final Float weightInKgFL = Float.parseFloat(weightInKgET.toString());
+                        EditText weightInKgET = (EditText) mView.findViewById(R.id.drillNew_weightInKg);
+                        final Float weightInKgFL = Float.parseFloat(weightInKgET.getText().toString());
 
-                            EditText numOfRepsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfRepeats);
-                            final int numOfRepsINT = Integer.parseInt(numOfRepsET.toString());
+                        EditText numOfRepsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfRepeats);
+                        final int numOfRepsINT = Integer.parseInt(numOfRepsET.getText().toString());
 
-                            EditText RestInSecondsET = (EditText) mView.findViewById(R.id.drillNew_RestInSeconds);
-                            final int RestInSecondsINT = Integer.parseInt(RestInSecondsET.toString());
+                        EditText RestInSecondsET = (EditText) mView.findViewById(R.id.drillNew_RestInSeconds);
+                        final int RestInSecondsINT = Integer.parseInt(RestInSecondsET.getText().toString());
 
-                            EditText drillDescriptionET = (EditText) mView.findViewById(R.id.drillNew_drillDescription);
-                            final String drillDescriptionSTR = drillDescriptionET.toString();
+                        EditText drillDescriptionET = (EditText) mView.findViewById(R.id.drillNew_drillDescription);
+                        final String drillDescriptionSTR = drillDescriptionET.getText().toString();
 
-                            EditText LinkToDrillMovieET = (EditText) mView.findViewById(R.id.drillNew_LinkToDrillMovie);
-                            final String LinkToDrillMovieSTR = LinkToDrillMovieET.toString();
+                        EditText LinkToDrillMovieET = (EditText) mView.findViewById(R.id.drillNew_LinkToDrillMovie);
+                        final String LinkToDrillMovieSTR = LinkToDrillMovieET.getText().toString();
 
-                            ExerciseDrill exerciseDrill = new ExerciseDrill(nameOfDrillSTR,
-                                    LinkToDrillMovieSTR, weightInKgFL, numOfSetsINT,
-                                    numOfRepsINT, RestInSecondsINT, drillDescriptionSTR);
+                        ExerciseDrill exerciseDrill = new ExerciseDrill(nameOfDrillSTR,
+                                LinkToDrillMovieSTR, weightInKgFL, numOfSetsINT,
+                                numOfRepsINT, RestInSecondsINT, drillDescriptionSTR);
+                        trainingProgramToAdd.addNewDrill(exerciseDrill);
+                        adapter.notifyItemInserted(trainingProgramToAdd.getListOfDrills().size()); /*= new CreateProgramAdapter(trainingProgramToAdd.getListOfDrills()
+                                    , context);
+                            recyclerView.setAdapter(adapter);*/
 
                             /*final String emailToAdd = addtraineeET.getText().toString();
                             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -142,7 +168,7 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
 
                                 }
                             });*/
-                        }
+                        //  }
                     }
                 });
         alertDialogBuilderUserInput.setNegativeButton(getResources().getString(R.string.cancel),
@@ -175,35 +201,92 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final String[] daysOfWeek = getResources().getStringArray(R.array.daysOfWeek);
                 final boolean[] selected = new boolean[7];
-                for (int i = 0; i < selected.length; i++) selected[i] = false;
-                builder.setTitle("Choose days").setMultiChoiceItems(daysOfWeek, null, new DialogInterface.OnMultiChoiceClickListener() {
+                for (int i = 0; i < selected.length; i++) {
+                    switch (i) {
+                        case 0:
+                            selected[0] = daysOfTrainningArr.isSunday();
+                            break;
+                        case 1:
+                            selected[1] = daysOfTrainningArr.isMonday();
+                            break;
+                        case 2:
+                            selected[2] = daysOfTrainningArr.isTuesday();
+                            break;
+                        case 3:
+                            selected[3] = daysOfTrainningArr.isWednesday();
+                            break;
+                        case 4:
+                            selected[4] = daysOfTrainningArr.isThursday();
+                            break;
+                        case 5:
+                            selected[1] = daysOfTrainningArr.isFriday();
+                            break;
+                        case 6:
+                            selected[1] = daysOfTrainningArr.isSaturday();
+                            break;
+                    }
+                }
+                builder.setTitle("Choose days");
+                builder.setMultiChoiceItems(daysOfWeek, selected, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if (isChecked) {
-                            selected[position] = true;
-                        }
+                        selected[position] = isChecked;
                     }
                 });
                 builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                daysOfTrainningArr.setSunday(selected[0]);
+                                daysOfTrainningArr.setMonday(selected[1]);
+                                daysOfTrainningArr.setTuesday(selected[2]);
+                                daysOfTrainningArr.setWednesday(selected[3]);
+                                daysOfTrainningArr.setThursday(selected[4]);
+                                daysOfTrainningArr.setFriday(selected[5]);
+                                daysOfTrainningArr.setSaturday(selected[6]);
+
+                                String strToShow = "";
+                                for (int j = 0; j < selected.length; j++) {
+                                    switch (j) {
+                                        case 0:
+                                            if (selected[j]) strToShow = strToShow + "Sunday ";
+                                            break;
+                                        case 1:
+                                            if (selected[j]) strToShow = strToShow + "Monday ";
+                                            break;
+                                        case 2:
+                                            if (selected[j]) strToShow = strToShow + "Tuesday ";
+                                            break;
+                                        case 3:
+                                            if (selected[j]) strToShow = strToShow + "Wednesday ";
+                                            break;
+                                        case 4:
+                                            if (selected[j]) strToShow = strToShow + "Thursday ";
+                                            break;
+                                        case 5:
+                                            if (selected[j]) strToShow = strToShow + "Friday ";
+                                            break;
+                                        case 6:
+                                            if (selected[j]) strToShow = strToShow + "Saturday";
+                                            break;
+                                    }
+
+                                }
+
+                                if (strToShow.equals("")) {
+                                    strToShow = "Choose days";
+                                }
+                                daysOfProgramBTN.setText(strToShow);
+                            }
+
+                        }
+
+                );
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        daysOfTrainningArr.setSunday(selected[0]);
-                        daysOfTrainningArr.setMonday(selected[1]);
-                        daysOfTrainningArr.setTuesday(selected[2]);
-                        daysOfTrainningArr.setWednesday(selected[3]);
-                        daysOfTrainningArr.setThursday(selected[4]);
-                        daysOfTrainningArr.setFriday(selected[5]);
-                        daysOfTrainningArr.setSaturday(selected[6]);
-                        for ( day : daysOfTrainningArr) {
-
-                        }
-                        daysOfProgramBTN.set
-                                ProgramB
-
                     }
-                })
-                break;
+                }).show();
         }
     }
 }
