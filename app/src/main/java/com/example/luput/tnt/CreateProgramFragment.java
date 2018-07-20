@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
     private int valOfSpinner;
     String[] musclesGroups = {"Chest", "Back", "Biceps", "Triceps", "Legs", "Shoulders", "ABs"};
     FloatingActionButton floatingActionButton;
+    private Button daysOfProgramBTN;
+    private DaysOfTrainning daysOfTrainningArr;
 
 
     public void setValOfSpinner(int valOfSpinner) {
@@ -54,7 +57,9 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
         //addListenerOnSpinnerItemSelection();
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.createProgram_fab);
         floatingActionButton.setOnClickListener(this);
-
+        daysOfProgramBTN = (Button) view.findViewById(R.id.createProgram_chooseDaysBTN);
+        daysOfProgramBTN.setOnClickListener(this);
+        daysOfTrainningArr = new DaysOfTrainning();
         return view;
     }
 
@@ -163,6 +168,41 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
         switch (view.getId()) {
             case (R.id.createProgram_fab):
                 inflateNewDrillDialog();
+                break;
+
+            case (R.id.createProgram_chooseDaysBTN):
+                AlertDialog alertDialog;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                final String[] daysOfWeek = getResources().getStringArray(R.array.daysOfWeek);
+                final boolean[] selected = new boolean[7];
+                for (int i = 0; i < selected.length; i++) selected[i] = false;
+                builder.setTitle("Choose days").setMultiChoiceItems(daysOfWeek, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                        if (isChecked) {
+                            selected[position] = true;
+                        }
+                    }
+                });
+                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        daysOfTrainningArr.setSunday(selected[0]);
+                        daysOfTrainningArr.setMonday(selected[1]);
+                        daysOfTrainningArr.setTuesday(selected[2]);
+                        daysOfTrainningArr.setWednesday(selected[3]);
+                        daysOfTrainningArr.setThursday(selected[4]);
+                        daysOfTrainningArr.setFriday(selected[5]);
+                        daysOfTrainningArr.setSaturday(selected[6]);
+                        for ( day : daysOfTrainningArr) {
+
+                        }
+                        daysOfProgramBTN.set
+                                ProgramB
+
+                    }
+                })
                 break;
         }
     }

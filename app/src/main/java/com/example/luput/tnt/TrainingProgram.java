@@ -7,19 +7,17 @@ import java.util.List;
 public class TrainingProgram implements Serializable {
 
     private String NameOfTheProgram;
-    private ArrayList<ExerciseDrill> ListOfDrillsForA;
-    private ArrayList<ExerciseDrill> ListOfDrillsForB;
-    private String Type;
+    private ArrayList<ExerciseDrill> ListOfDrills;
+    //private String Type;
     private DaysOfTrainning DaysOfWorkOut;
     private boolean CurrentProgram;
 
-    public TrainingProgram(String nameOfTheProgram, ArrayList<ExerciseDrill> listOfDrillsForA,
-                           ArrayList<ExerciseDrill> listOfDrillsForB, String type,
+    public TrainingProgram(String nameOfTheProgram,
+                           ArrayList<ExerciseDrill> listOfDrills, /*String type,*/
                            DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
         NameOfTheProgram = nameOfTheProgram;
-        ListOfDrillsForA = listOfDrillsForA;
-        ListOfDrillsForB = listOfDrillsForB;
-        Type = type;
+        this.ListOfDrills = listOfDrills;
+        // Type = type;
         DaysOfWorkOut = daysOfWorkOut;
         CurrentProgram = currentProgram;
     }
@@ -32,30 +30,23 @@ public class TrainingProgram implements Serializable {
         NameOfTheProgram = nameOfTheProgram;
     }
 
-    public ArrayList<ExerciseDrill> getListOfDrillsForA() {
-        return ListOfDrillsForA;
+    public ArrayList<ExerciseDrill> getListOfDrills() {
+        return ListOfDrills;
     }
 
-    public void setListOfDrillsForA(ArrayList<ExerciseDrill> listOfDrillsForA) {
-        ListOfDrillsForA = listOfDrillsForA;
+    public void setListOfDrills(ArrayList<ExerciseDrill> listOfDrillsForA) {
+        this.ListOfDrills = listOfDrillsForA;
     }
 
-    public ArrayList<ExerciseDrill> getListOfDrillsForB() {
-        return ListOfDrillsForB;
-    }
+    /*
+        public String getType() {
+            return Type;
+        }
 
-    public void setListOfDrillsForB(ArrayList<ExerciseDrill> listOfDrillsForB) {
-        ListOfDrillsForB = listOfDrillsForB;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
-
+        public void setType(String type) {
+            Type = type;
+        }
+    */
     public DaysOfTrainning getDaysOfWorkOut() {
         return DaysOfWorkOut;
     }
