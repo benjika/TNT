@@ -71,6 +71,7 @@
 
     <!-- trainee section -->
     <string name="number_of_sets">Sets:</string>
+    <string name="repeats">Repeats:</string>
     <string name="weight">Weight:</string>
     <string name="rest">Rest:</string>
     <string name="Link_to_drill">Link To Movie</string>

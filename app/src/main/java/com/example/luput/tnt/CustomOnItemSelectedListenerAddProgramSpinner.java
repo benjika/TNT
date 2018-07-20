@@ -10,7 +10,6 @@ public class CustomOnItemSelectedListenerAddProgramSpinner implements AdapterVie
         Toast.makeText(parent.getContext(),
                 "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
-        CreateProgramFragment.setN
     }
 
     @Override

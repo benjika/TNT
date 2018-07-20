@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -26,14 +27,13 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateProgramFragment extends Fragment {
-
-
+public class CreateProgramFragment extends Fragment implements View.OnClickListener {
     Context context;
     Spinner spinner1;
     private int valOfSpinner;
     String[] musclesGroups = {"Chest", "Back", "Biceps", "Triceps", "Legs", "Shoulders", "ABs"};
-    FloatingActionMenu floatingActionMenu;
+    FloatingActionButton floatingActionButton;
+
 
     public void setValOfSpinner(int valOfSpinner) {
         this.valOfSpinner = valOfSpinner;
@@ -51,13 +51,9 @@ public class CreateProgramFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_program, container, false);
         context = container.getContext();
         valOfSpinner = -1;
-        addListenerOnSpinnerItemSelection();
-        floatingActionMenu = view.findViewById(R.id.menu);
-        floatingActionMenu.getMenuIconView().setColorFilter(Color.WHITE);
-        floatingActionButton_email = view.findViewById(R.id.coach_menu_item_email);
-        floatingActionButton_mobile = view.findViewById(R.id.coach_menu_item_mobile);
-        floatingActionButton_email.setOnClickListener(this);
-        floatingActionButton_mobile.setOnClickListener(this);
+        //addListenerOnSpinnerItemSelection();
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.createProgram_fab);
+        floatingActionButton.setOnClickListener(this);
 
         return view;
     }
@@ -68,6 +64,12 @@ public class CreateProgramFragment extends Fragment {
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(context);
         alertDialogBuilderUserInput.setView(mView);
 
+        Spinner spinner = (Spinner) mView.findViewById(R.id.drillNew_MuscleGroupSpinner);
+        spinner.setOnItemSelectedListener(new CustomOnItemSelectedListenerAddProgramSpinner());
+
+
+        CustomOnItemSelectedListenerAddProgramSpinner customOnItemSelectedListenerAddProgramSpinner
+                = new CustomOnItemSelectedListenerAddProgramSpinner();
 
         final TextInputEditText addtraineeET = (TextInputEditText) mView.findViewById(R.id.coach_add_trainee_email);
         alertDialogBuilderUserInput
@@ -83,13 +85,16 @@ public class CreateProgramFragment extends Fragment {
                             final String nameOfDrillSTR = nameOfDrillET.toString();
 
                             EditText numOfSetsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfSets);
-                            final String numOfSetsSTR = numOfSetsET.toString();
+                            final int numOfSetsINT = Integer.parseInt(numOfSetsET.toString());
 
                             EditText weightInKgET = (EditText) mView.findViewById(R.id.drillNew_weightInKg);
-                            final String weightInKgSTR = weightInKgET.toString();
+                            final Float weightInKgFL = Float.parseFloat(weightInKgET.toString());
+
+                            EditText numOfRepsET = (EditText) mView.findViewById(R.id.drillNew_NumberOfRepeats);
+                            final int numOfRepsINT = Integer.parseInt(numOfRepsET.toString());
 
                             EditText RestInSecondsET = (EditText) mView.findViewById(R.id.drillNew_RestInSeconds);
-                            final String RestInSecondsSTR = RestInSecondsET.toString();
+                            final int RestInSecondsINT = Integer.parseInt(RestInSecondsET.toString());
 
                             EditText drillDescriptionET = (EditText) mView.findViewById(R.id.drillNew_drillDescription);
                             final String drillDescriptionSTR = drillDescriptionET.toString();
@@ -97,9 +102,11 @@ public class CreateProgramFragment extends Fragment {
                             EditText LinkToDrillMovieET = (EditText) mView.findViewById(R.id.drillNew_LinkToDrillMovie);
                             final String LinkToDrillMovieSTR = LinkToDrillMovieET.toString();
 
-                            ExerciseDrill exerciseDrill = new ExerciseDrill(nameOfDrillSTR,LinkToDrillMovieSTR,,)
+                            ExerciseDrill exerciseDrill = new ExerciseDrill(nameOfDrillSTR,
+                                    LinkToDrillMovieSTR, weightInKgFL, numOfSetsINT,
+                                    numOfRepsINT, RestInSecondsINT, drillDescriptionSTR);
 
-                            final String emailToAdd = addtraineeET.getText().toString();
+                            /*final String emailToAdd = addtraineeET.getText().toString();
                             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -129,7 +136,7 @@ public class CreateProgramFragment extends Fragment {
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            });
+                            });*/
                         }
                     }
                 });
@@ -151,5 +158,13 @@ public class CreateProgramFragment extends Fragment {
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListenerAddProgramSpinner());
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case (R.id.createProgram_fab):
+                inflateNewDrillDialog();
+                break;
+        }
+    }
 }
 
