@@ -30,6 +30,7 @@ public class Trainee implements Comparable, Serializable {
     }
 
     public List<TrainingProgram> getPrograms() {
+        if (Programs == null) Programs = new ArrayList<>();
         return Programs;
     }
 

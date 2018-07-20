@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -14,30 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-
-            <Spinner
-                android:id="@+id/drillNew_MuscleGroupSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:entries="@array/muscle_groups"
-                android:prompt="@string/chooseMuscleGroup" />
-        </LinearLayout>
-
-
         <EditText
-            android:id="@+id/drillNew_drillName"
+            android:id="@+id/drillHolder_drillName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Drill Name"
@@ -60,14 +37,13 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
 
-            <EditText
-                android:id="@+id/drillNew_NumberOfSets"
+            <TextView
+                android:id="@+id/drillHolder_NumberOfSets"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="7dp"
                 android:gravity="center"
                 android:hint="15"
-                android:inputType="number"
                 android:textSize="21sp" />
 
             <TextView
@@ -79,13 +55,12 @@
                 android:textSize="21sp" />
 
 
-            <EditText
-                android:id="@+id/drillNew_weightInKg"
+            <TextView
+                android:id="@+id/drillHolder_weightInKg"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="15"
-                android:inputType="number"
                 android:textSize="21sp" />
 
 
@@ -104,14 +79,13 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
 
-            <EditText
-                android:id="@+id/drillNew_NumberOfRepeats"
+            <TextView
+                android:id="@+id/drillHolder_NumberOfRepeats"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="7dp"
                 android:gravity="center"
                 android:hint="15"
-                android:inputType="number"
                 android:textSize="21sp" />
 
             <TextView
@@ -123,18 +97,17 @@
                 android:textSize="21sp" />
 
 
-            <EditText
-                android:id="@+id/drillNew_RestInSeconds"
+            <TextView
+                android:id="@+id/drillHolder_RestInSeconds"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="15"
-                android:inputType="number"
                 android:textSize="21sp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/drillNew_drillDescription"
+        <TextView
+            android:id="@+id/drillHolder_drillDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -143,8 +116,8 @@
             android:textAlignment="center"
             android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/drillNew_LinkToDrillMovie"
+        <TextView
+            android:id="@+id/drillHolder_LinkToDrillMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
