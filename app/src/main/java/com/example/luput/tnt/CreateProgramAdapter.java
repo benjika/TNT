@@ -22,7 +22,7 @@ public class CreateProgramAdapter extends RecyclerView.Adapter<CreateProgramAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.drill_holder, parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.drill_holder, parent, false);
         return new ViewHolder(view);
     }
 
@@ -30,7 +30,7 @@ public class CreateProgramAdapter extends RecyclerView.Adapter<CreateProgramAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         ExerciseDrill exerciseDrill = listOfDrills.get(position);
         holder.nameOfDrill.setText(exerciseDrill.getNameOfExercise());
-        holder.numOfSets.setText(exerciseDrill.getNumberOfSets()+"");
+        holder.numOfSets.setText(exerciseDrill.getNumberOfSets() + "");
         holder.weightInKG.setText(exerciseDrill.getWeightInKg() + "");
         holder.numOfReps.setText(exerciseDrill.getNumberOfRepeat() + "");
         holder.restTime.setText(exerciseDrill.getNumberOfRestInSeconds() + "");

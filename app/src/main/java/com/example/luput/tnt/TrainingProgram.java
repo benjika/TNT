@@ -45,7 +45,13 @@ public class TrainingProgram implements Serializable {
     }
 
     public void addNewDrill(ExerciseDrill exerciseDrill) {
+        if (ListOfDrills == null) this.ListOfDrills = new ArrayList<>();
         ListOfDrills.add(exerciseDrill);
+    }
+
+    public int getNumOfDrills() {
+        if (ListOfDrills == null) this.ListOfDrills = new ArrayList<>();
+        return ListOfDrills.size();
     }
 
     /*
