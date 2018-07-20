@@ -12,11 +12,12 @@ import java.util.List;
 
 public class Coach {
 
-
     private List<String> trainees;
     private String FirstName;
     private String LastName;
     private String Email;
+    private String ImgUri;
+    private String PhoneNumber;
 
     public Coach(String firstName, String lastName, String email) {
         this.trainees = new ArrayList<String>();
@@ -58,5 +59,21 @@ public class Coach {
 
     public List<String> getTrainees() {
         return trainees;
+    }
+
+    public String getImgUri() {
+        return ImgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        ImgUri = imgUri;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }

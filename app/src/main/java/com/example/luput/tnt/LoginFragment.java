@@ -78,14 +78,12 @@ public class LoginFragment extends Fragment {
         });
 
 
-
-
         LoginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
                 Email = UserName.getText().toString();
                 password = Password.getText().toString();
-                if(checkInput(Email,password)) {
+                if (checkInput(Email, password)) {
                     final ProgressDialog dialog = new ProgressDialog(getActivity()); // this = YourActivity
                     dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     dialog.setMessage("Loading. Please wait...");
@@ -101,12 +99,17 @@ public class LoginFragment extends Fragment {
                                     if (DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).exists()) {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", false);
+                                        intent.putExtra("Name", DBforlogin.child(utils.TRAINEE_BRANCH)
+                                                .child(userUID).getValue(Trainee.class).getFirstName());
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
                                         Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
                                         intent.putExtra("isCoach", true);
+                                        intent.putExtra("Name",
+                                                DBforlogin.child(utils.COACH_BRANCH).child(userUID)
+                                                        .getValue(Coach.class).getFirstName());
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
@@ -122,9 +125,8 @@ public class LoginFragment extends Fragment {
                             }
                         }
                     });
-                }
-                else {
-                    utils.makeSimplePopup("Error in input","Please make sure you fill all the input fields",getActivity());
+                } else {
+                    utils.makeSimplePopup("Error in input", "Please make sure you fill all the input fields", getActivity());
                 }
             }
         });
@@ -134,7 +136,7 @@ public class LoginFragment extends Fragment {
     private boolean checkInput(String email, String password) {
         boolean isValid = true;
 
-        if(email.isEmpty() || password.isEmpty()){
+        if (email.isEmpty() || password.isEmpty()) {
             isValid = false;
         }
 
@@ -156,7 +158,7 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void forgotPasswordDialog(View view){
+    private void forgotPasswordDialog(View view) {
         forgotPasswordDialog = new Dialog(view.getContext());
         forgotPasswordDialog.setContentView(R.layout.forgot_password_dialog);
         forgotPasswordDialog.setTitle("Forgot Password");
@@ -176,7 +178,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String email = EmailToSend.getText().toString();
-                if(!email.isEmpty() && email != null){
+                if (!email.isEmpty() && email != null) {
                     mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -184,18 +186,17 @@ public class LoginFragment extends Fragment {
                                     .setTitle("Reset Email Send")
                                     .setMessage("Please check your Email adress")
                                     .setAnimation(Animation.POP)
-                                    .setPositiveButton("Ok",null)
+                                    .setPositiveButton("Ok", null)
                                     .build();
                         }
                     });
                     forgotPasswordDialog.cancel();
-                }
-                else {
+                } else {
                     new OoOAlertDialog.Builder(getActivity())
                             .setTitle("Wrong Input")
                             .setMessage("Must enter valid email")
                             .setAnimation(Animation.POP)
-                            .setPositiveButton("Ok",null)
+                            .setPositiveButton("Ok", null)
                             .build();
                 }
             }
