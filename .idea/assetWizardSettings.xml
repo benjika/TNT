@@ -19,8 +19,38 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Beni\Desktop\ic_email.png" />
-                                      <entry key="outputName" value="ic_email2" />
+                                      <entry key="imageAsset" value="C:\Users\Beni\Desktop\tricep-512.png" />
+                                      <entry key="outputName" value="ic_tricep" />
+                                      <entry key="theme" value="HOLO_DARK" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                            <entry key="launcher">
+                              <value>
+                                <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="scalingPercent" value="80" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="C:\Users\Beni\Desktop\Locker.png" />
+                                      <entry key="foregroundLayerName" value="logo_tnt" />
+                                      <entry key="outputName" value="ic_locker" />
                                     </map>
                                   </option>
                                 </PersistentState>

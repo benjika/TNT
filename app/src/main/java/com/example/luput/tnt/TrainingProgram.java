@@ -13,7 +13,9 @@ public class TrainingProgram implements Serializable {
     private DaysOfTrainning DaysOfWorkOut;
     private boolean CurrentProgram;
 
-    public TrainingProgram(String nameOfTheProgram, ArrayList<ExerciseDrill> listOfDrillsForA, ArrayList<ExerciseDrill> listOfDrillsForB, String type, DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
+    public TrainingProgram(String nameOfTheProgram, ArrayList<ExerciseDrill> listOfDrillsForA,
+                           ArrayList<ExerciseDrill> listOfDrillsForB, String type,
+                           DaysOfTrainning daysOfWorkOut, boolean currentProgram) {
         NameOfTheProgram = nameOfTheProgram;
         ListOfDrillsForA = listOfDrillsForA;
         ListOfDrillsForB = listOfDrillsForB;

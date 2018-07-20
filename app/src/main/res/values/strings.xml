@@ -71,6 +71,7 @@
 
     <!-- trainee section -->
     <string name="number_of_sets">Sets:</string>
+    <string name="repeats">Repeats:</string>
     <string name="weight">Weight:</string>
     <string name="rest">Rest:</string>
     <string name="Link_to_drill">Link To Movie</string>
@@ -78,6 +79,31 @@
     <string name="add_trainee">Add trainee</string>
     <string name="use_emaii">Use email address</string>
     <string name="use_phone_number">Use phone number</string>
+    <string name="input_email">Input Email</string>
+    <string name="input_phone">Input phone number</string>
+    <string name="add_email_of_new_trainee">Email of the new trainee</string>
+    <string name="add_phone_of_new_trainee">Phone num. of the new trainee</string>
+    <string name="add">Add</string>
 
+
+    <!--edit program fragment-->
+    <string name="addNewProgram">Add new program</string>
+    <string name="addFromBank">Add new program</string>
+    <string name="createNewProgram">Create new program</string>
+
+
+    <!--new drill dialog -->
+    <string name="chooseMuscleGroup">Choose muscle group</string>
+
+    <string-array name="muscle_groups">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Biceps</item>
+        <item>Triceps</item>
+        <item>Legs</item>
+        <item>Shoulders</item>
+        <item>ABs</item>
+        <!-- <item>Aerobic</item>  -->
+    </string-array>
 
 </resources>
