@@ -2,16 +2,12 @@ package com.example.luput.tnt;
 
 
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -99,13 +95,13 @@ public class LoginFragment extends Fragment {
                                 if (DBforlogin != null) {
                                     String userUID = mAuth.getCurrentUser().getUid();
                                     if (DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).exists()) {
-                                        Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                        Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                         intent.putExtra("isCoach", false);
                                         dialog.cancel();
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
-                                        Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                        Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                         intent.putExtra("isCoach", true);
                                         dialog.cancel();
                                         startActivity(intent);

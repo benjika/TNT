@@ -41,7 +41,10 @@
     <string name="fill_email">Fill Email address</string>
     <string name="fill_email_again">Please ReEnter Your Email</string>
     <string name="choose_password">Choose password</string>
-    <string name="choose_password_again">Please ReEnter Your Password</string>
+    <string name="reenter_password">Reenter password</string>
+    <string name="im_a_trainee">I\'m a trainee</string>
+    <string name="im_a_coach">I\'m a coach</string>
+
 
 
     <string name="training_program_current">Current Program</string>
@@ -115,5 +118,10 @@
         <item>Friday</item>
         <item>Saturday</item>
     </string-array>
+
+
+    //facebook login
+    <string name="facebook_app_id">655993528067305</string>
+    <string name="fb_login_protocol_scheme">fb655993528067305</string>
 
 </resources>

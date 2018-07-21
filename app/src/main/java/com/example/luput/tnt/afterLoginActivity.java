@@ -9,14 +9,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class afterLoginActiviry extends AppCompatActivity {
+public class afterLoginActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     boolean isCoach;
@@ -93,24 +92,24 @@ public class afterLoginActiviry extends AppCompatActivity {
         switch (clickedID){
             case R.id.Logout_coach:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(afterLoginActiviry.this,MainActivity.class);
+                Intent intent = new Intent(afterLoginActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.Coach_about:
-                Toast.makeText(afterLoginActiviry.this, "about our fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(afterLoginActivity.this, "about our fail", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ShowTrainees:
-                Toast.makeText(afterLoginActiviry.this, "open trainees", Toast.LENGTH_SHORT).show();
+                Toast.makeText(afterLoginActivity.this, "open trainees", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.Logout_trainee:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent1 = new Intent(afterLoginActiviry.this,MainActivity.class);
+                Intent intent1 = new Intent(afterLoginActivity.this,MainActivity.class);
                 startActivity(intent1);
                 finish();
                 break;
             case R.id.AboutTrainee:
-                Toast.makeText(afterLoginActiviry.this, "about our fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(afterLoginActivity.this, "about our fail", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
