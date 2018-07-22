@@ -112,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColorHint="@color/colorPrimary"
+                        android:textColorHint="@color/primary_text"
                         android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                         <android.support.design.widget.TextInputEditText
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="horizontal"
-                        android:textColorHint="@color/colorPrimary"
+                        android:textColorHint="@color/primary_text"
                         android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                         <android.support.design.widget.TextInputEditText
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
+                    android:textColorHint="@color/primary_text"
                     android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
+                    android:textColorHint="@color/primary_text"
                     android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
+                    android:textColorHint="@color/primary_text"
                     android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:textColorHint="@color/colorPrimary"
+                    android:textColorHint="@color/primary_text"
                     android.support.design:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText

@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">TnT</string>
+    <string name="app_name">TNT</string>
+
+    <!--entrance fragment-->
+    <string name="entrance">Entrance</string>
 
     <!--signin fragment-->
     <string name="username">Username</string>
@@ -44,7 +47,6 @@
     <string name="reenter_password">Reenter password</string>
     <string name="im_a_trainee">I\'m a trainee</string>
     <string name="im_a_coach">I\'m a coach</string>
-
 
 
     <string name="training_program_current">Current Program</string>
