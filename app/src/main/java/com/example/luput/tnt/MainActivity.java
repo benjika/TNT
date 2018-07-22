@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class SigninLoginPagerAdapter extends FragmentStatePagerAdapter {
 
-        final int size = 2;
+        final int size = 3;
 
         public SigninLoginPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0)
+                return EntranceFragment.newInstance();
+            if (position == 1)
                 return LoginFragment.newInstance();
             else
                 return SignupFragment.newInstance();
@@ -83,13 +85,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            String signin = getResources().getString(R.string.sign_in);
-            String signup = getResources().getString(R.string.sign_up);
-
             if (position == 0)
-                return signin;
+                return getResources().getString(R.string.entrance);
+            else if (position == 1)
+                return getResources().getString(R.string.sign_in);
             else
-                return signup;
+                return getResources().getString(R.string.sign_up);
         }
     }
 

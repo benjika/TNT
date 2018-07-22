@@ -2,16 +2,13 @@ package com.example.luput.tnt;
 
 
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,7 +75,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-
         LoginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -97,7 +94,7 @@ public class LoginFragment extends Fragment {
                                 if (DBforlogin != null) {
                                     String userUID = mAuth.getCurrentUser().getUid();
                                     if (DBforlogin.child(utils.TRAINEE_BRANCH).child(userUID).exists()) {
-                                        Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                        Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                         intent.putExtra("isCoach", false);
                                         intent.putExtra("Name", DBforlogin.child(utils.TRAINEE_BRANCH)
                                                 .child(userUID).getValue(Trainee.class).getFirstName());
@@ -105,7 +102,7 @@ public class LoginFragment extends Fragment {
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
-                                        Intent intent = new Intent(getActivity(), afterLoginActiviry.class);
+                                        Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                         intent.putExtra("isCoach", true);
                                         intent.putExtra("Name",
                                                 DBforlogin.child(utils.COACH_BRANCH).child(userUID)
