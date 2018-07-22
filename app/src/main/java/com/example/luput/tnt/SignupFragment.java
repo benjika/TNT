@@ -77,7 +77,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         AppEventsLogger.activateApp(getActivity().getApplicationContext());
 
-        //radioTrainerOrTrainee = (RadioGroup) view.findViewById(R.id.radio_trainerOrTrainee);
         etFirstName = (EditText) view.findViewById(R.id.signup_firstName);
         etLastName = (EditText) view.findViewById(R.id.signup_lastName);
         Email = view.findViewById(R.id.signup_email);
@@ -86,19 +85,10 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         imACoach = view.findViewById(R.id.signup_imACoach);
         imATrainee = view.findViewById(R.id.signup_imAtrainee);
-       /* radioTrainerOrTrainee.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (i == R.id.radio_trainee) {
-                    isCoach = false;
-                } else {
-                    isCoach = true;
-                }
-            }
-        });*/
         imACoach.setOnClickListener(this);
         imATrainee.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
+
 
         return view;
     }

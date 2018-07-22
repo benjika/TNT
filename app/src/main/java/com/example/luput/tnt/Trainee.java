@@ -9,13 +9,15 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class Trainee implements Comparable,Serializable{
-
+public class Trainee implements Comparable, Serializable {
 
     private List<TrainingProgram> Programs;
     private String FirstName;
     private String LastName;
     private String Email;
+    private String ImgUri;
+    private String PhoneNumber;
+
 
     public Trainee() {
     }
@@ -32,7 +34,7 @@ public class Trainee implements Comparable,Serializable{
         return Programs;
     }
 
-    public void setPrograms(List<TrainingProgram> programs){
+    public void setPrograms(List<TrainingProgram> programs) {
         Programs = programs;
     }
 
@@ -60,22 +62,39 @@ public class Trainee implements Comparable,Serializable{
         return Email;
     }
 
-    public String getEmailAddress(){
+    public String getEmailAddress() {
         return Email;
+    }
+
+    public String getImgUri() {
+        return ImgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        ImgUri = imgUri;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 
     public static Comparator<Trainee> StuNameComparator = new Comparator<Trainee>() {
         public int compare(Trainee s1, Trainee s2) {
-           // String StudentName1 = s1.getStudentname().toUpperCase();
-           // String StudentName2 = s2.getStudentname().toUpperCase();.
+            // String StudentName1 = s1.getStudentname().toUpperCase();
+            // String StudentName2 = s2.getStudentname().toUpperCase();.
 
             if (s1.getLastName().compareTo(((Trainee) s2).getLastName()) != 0)
                 s1.getFirstName().compareTo(((Trainee) s2).getLastName());
             else if (s1.getFirstName().compareTo(((Trainee) s2).getFirstName()) != 0) {
                 return s1.getFirstName().compareTo(((Trainee) s2).getFirstName());
             }
-           return s1.getEmailAddress().compareTo(((Trainee) s2).getEmailAddress());
-        }};
+            return s1.getEmailAddress().compareTo(((Trainee) s2).getEmailAddress());
+        }
+    };
 
     @Override
     public int compareTo(@NonNull Object o) {
