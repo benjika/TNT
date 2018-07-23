@@ -49,6 +49,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
     TextView nothigToShow;
     Context context;
     private CoachAdapter coachAdapter;
+    Coach coach;
 
     private FloatingActionMenu floatingActionMenu;
 
@@ -90,34 +91,6 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
             recyclerView.setVisibility(View.GONE);
             nothigToShow = view.findViewById(R.id.coach_nothingToShow);
             nothigToShow.setVisibility(View.VISIBLE);
-        } else {
-            //region temp
-            /*
-            RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.coach_recyclerView);
-            CoachAdapter coachAdapter = new CoachAdapter(container.getContext(), traineeList);
-            recyclerView.setAdapter(coachAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-
-            coachAdapter.setOnItemClickListener(new CoachAdapter.MyClickListener() {
-                @Override
-                public void onItemClick(int position, View v) {
-                    String email = traineeList.get(position).getEmailAddress();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Bundle bundle = new Bundle();
-
-                    for (Trainee trainee : traineeList) {
-                        if (trainee.getEmailAddress().equals(email)) {
-                            bundle.putSerializable("Trainee", trainee);
-                        }
-                    }
-                    CoachEditProgramFragment coachEditProgramFragment = CoachEditProgramFragment.newInstance();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(container.getId(), coachEditProgramFragment);
-                    fragmentTransaction.commit();
-                }
-            });
-            */
-            //endregion
         }
 
         return view;
@@ -129,10 +102,9 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Coach coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
+                coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
                 if (coach.getTrainees() != null) {
                     if (!coach.getTrainees().isEmpty()) {
-                        //  List<String> listOfTraineesUID = new ArrayList<String>();
                         listOfTraineesUID = coach.getTrainees();
                         for (String Uid : listOfTraineesUID) {
                             Trainee traineeToAdd = dataSnapshot.child("trainee").child(Uid).getValue(Trainee.class);
@@ -153,6 +125,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                                 FragmentManager fragmentManager = getFragmentManager();
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("Trainee", traineeList.get(position));
+                                bundle.putSerializable("Coach", coach);
                                 bundle.putString("TraineeUid", listOfTraineesUID.get(position));
                                 coachEditProgramFragment.setArguments(bundle);
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
