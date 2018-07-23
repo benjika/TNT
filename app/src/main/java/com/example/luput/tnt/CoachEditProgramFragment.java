@@ -38,9 +38,14 @@ public class CoachEditProgramFragment extends Fragment implements View.OnClickLi
     private List<TrainingProgram> programs = new ArrayList<>();
     private FloatingActionMenu floatingActionMenu;
     private Context context;
+    Coach coach;
     Trainee trainee;
     String traineeId;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     public CoachEditProgramFragment() {
         // Required empty public constructor
@@ -59,7 +64,10 @@ public class CoachEditProgramFragment extends Fragment implements View.OnClickLi
         context = container.getContext();
         trainee = (Trainee) getArguments().getSerializable("Trainee");
         traineeId = (String) getArguments().getString("TraineeUid");
+        coach = (Coach) getArguments().getSerializable("Coach");
+
         programs = trainee.getPrograms();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if (programs == null || programs.size() == 0) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coachEdit_recycleView);
@@ -69,16 +77,32 @@ public class CoachEditProgramFragment extends Fragment implements View.OnClickLi
         } else {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coachEdit_recycleView);
             CoachEditProgramAdapter coachEditProgramAdapter = new CoachEditProgramAdapter(programs);
+
             recyclerView.setAdapter(coachEditProgramAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-            coachEditProgramAdapter.setOnitemListener(new CoachEditProgramAdapter.MyEditProgramListener() {
+            coachEditProgramAdapter.setOnItemListener(new CoachEditProgramAdapter.MyEditProgramListener() {
                 @Override
                 public void onProgramClick(int position, View view) {
+                    FullProgramFragment fullProgramFragment = new FullProgramFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("ProgramToShow", trainee.getPrograms().get(position));
+                    fullProgramFragment.setArguments(bundle);
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), fullProgramFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
 
-                    Toast.makeText(view.getContext(), "Will show program", Toast.LENGTH_LONG).show();
+                @Override
+                public void onProgramCheck(int position, Boolean isChecked) {
+                    programs.get(position).setCurrentProgram(isChecked);
+                    mDatabase.child("trainee").child(traineeId).child("programs").setValue(programs);
                 }
             });
+
+
         }
 
         FloatingActionButton floatingActionButton_createNewProgran = (FloatingActionButton) view.findViewById(R.id.coachEditProgram_menuItem_AddNewProgram);
@@ -94,7 +118,6 @@ public class CoachEditProgramFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.coachEditProgram_menuItem_AddNewProgram:
-                //Toast.makeText(context, "added by email", Toast.LENGTH_SHORT).show();
                 CreateProgramFragment createProgramFragment = new CreateProgramFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 Bundle bundle = new Bundle();
@@ -108,8 +131,18 @@ public class CoachEditProgramFragment extends Fragment implements View.OnClickLi
                 floatingActionMenu.close(true);
                 break;
             case R.id.coachEditProgram_menuItem_addFromBank:
-                Toast.makeText(context, "added by phone number", Toast.LENGTH_SHORT).show();
-                //inflatePhoneDialog();
+                CoachAddFromBankFragment coachAddFromBankFragment = new CoachAddFromBankFragment();
+                FragmentManager fragmentManager1 = getFragmentManager();
+                Bundle bundle1 = new Bundle();
+                bundle1.putSerializable("Trainee", trainee);
+                bundle1.putSerializable("Coach", coach);
+                bundle1.putString("TraineeUid", traineeId);
+                coachAddFromBankFragment.setArguments(bundle1);
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(((ViewGroup) getView().getParent()).getId(), coachAddFromBankFragment);
+                fragmentTransaction1.addToBackStack(null);
+                fragmentTransaction1.commit();
+                floatingActionMenu.close(true);
                 floatingActionMenu.close(true);
                 break;
         }

@@ -43,23 +43,23 @@
             android:gravity="bottom"
             android:orientation="horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="@color/primary_text"
-                android:text="@string/sign_in"
-                android:textColor="@color/secondary_text" />
+            <!-- <Button
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="bottom"
+                 android:layout_weight="1"
+                 android:background="@color/primary_text"
+                 android:text="@string/sign_in"
+                 android:textColor="@color/secondary_text" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="@color/primary_text"
-                android:text="@string/sign_up"
-                android:textColor="@color/secondary_text" />
+             <Button
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="bottom"
+                 android:layout_weight="1"
+                 android:background="@color/primary_text"
+                 android:text="@string/sign_up"
+                 android:textColor="@color/secondary_text" /> -->
         </LinearLayout>
 
 

@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         SigninLoginPagerAdapter adapter = new SigninLoginPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);

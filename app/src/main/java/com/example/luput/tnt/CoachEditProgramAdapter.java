@@ -8,10 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class CoachEditProgramAdapter extends RecyclerView.Adapter<CoachEditProgramAdapter.ViewHolder> {
 
@@ -20,6 +26,7 @@ public class CoachEditProgramAdapter extends RecyclerView.Adapter<CoachEditProgr
     private List<TrainingProgram> programs = new ArrayList<>();
     private Context context;
     private MyEditProgramListener myEditProgramListener;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -32,7 +39,7 @@ public class CoachEditProgramAdapter extends RecyclerView.Adapter<CoachEditProgr
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        TrainingProgram trainingProgram = programs.get(position);
+        final TrainingProgram trainingProgram = programs.get(position);
         holder.programTitleTV.setText(trainingProgram.getNameOfTheProgram());
         holder.currentProgramCB.setChecked(trainingProgram.isCurrentProgram());
     }
@@ -48,7 +55,7 @@ public class CoachEditProgramAdapter extends RecyclerView.Adapter<CoachEditProgr
         CheckBox currentProgramCB;
         CardView parentLayout;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             programTitleTV = (TextView) itemView.findViewById(R.id.training_program_header);
@@ -61,16 +68,25 @@ public class CoachEditProgramAdapter extends RecyclerView.Adapter<CoachEditProgr
                     myEditProgramListener.onProgramClick(getAdapterPosition(), view);
                 }
             });
+            currentProgramCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    myEditProgramListener.onProgramCheck(getAdapterPosition(), isChecked);
+                }
+            });
         }
     }
 
     interface MyEditProgramListener {
         void onProgramClick(int position, View view);
+
+        void onProgramCheck(int position, Boolean isChecked);
     }
 
-    public void setOnitemListener(MyEditProgramListener listener) {
+    public void setOnItemListener(MyEditProgramListener listener) {
         myEditProgramListener = listener;
     }
+
 
     public CoachEditProgramAdapter(List<TrainingProgram> programsNew) {
         this.programs = programsNew;

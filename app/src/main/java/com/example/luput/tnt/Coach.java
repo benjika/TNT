@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coach {
+public class Coach implements Serializable {
 
     private List<String> trainees;
+
+
+    private List<TrainingProgram> TrainingProgramBank;
     private String FirstName;
     private String LastName;
     private String Email;
@@ -75,5 +79,24 @@ public class Coach {
 
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
+    }
+
+    public List<TrainingProgram> getTrainingProgramBank() {
+        if (this.TrainingProgramBank == null) this.TrainingProgramBank = new ArrayList<>();
+        return TrainingProgramBank;
+    }
+
+    public void setTrainingProgramBank(List<TrainingProgram> trainingProgramBank) {
+        TrainingProgramBank = trainingProgramBank;
+    }
+
+    public int getSizeOfBank() {
+        if (this.TrainingProgramBank == null) this.TrainingProgramBank = new ArrayList<>();
+        return this.TrainingProgramBank.size();
+    }
+
+    public void addToBank(TrainingProgram trainingProgram) {
+        if (this.TrainingProgramBank == null) this.TrainingProgramBank = new ArrayList<>();
+        this.TrainingProgramBank.add(trainingProgram);
     }
 }

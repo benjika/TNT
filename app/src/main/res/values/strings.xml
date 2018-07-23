@@ -93,7 +93,7 @@
 
     <!--edit program fragment-->
     <string name="addNewProgram">Add new program</string>
-    <string name="addFromBank">Add new program</string>
+    <string name="addFromBank">Add program from bank</string>
     <string name="createNewProgram">Create new program</string>
 
 
@@ -101,6 +101,7 @@
     <string name="chooseMuscleGroup">Choose muscle group</string>
 
     <string-array name="muscle_groups">
+        <item>Choose muscle group</item>
         <item>Chest</item>
         <item>Back</item>
         <item>Biceps</item>
@@ -110,6 +111,9 @@
         <item>ABs</item>
         <!-- <item>Aerobic</item>  -->
     </string-array>
+
+    <!--create program fragment-->
+    <string name="noMuscleGroup">No Muscle Group was selected</string>
 
     <string-array name="daysOfWeek">
         <item>Sunday</item>
@@ -121,6 +125,9 @@
         <item>Saturday</item>
     </string-array>
 
+
+    <!--add from bank fragment-->
+    <string name="areYouSureYouWantToAddThisProgram">Are you sure you want to add this program to your trainee?</string>
 
     //facebook login
     <string name="facebook_app_id">655993528067305</string>
