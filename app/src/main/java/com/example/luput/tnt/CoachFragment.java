@@ -103,7 +103,8 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 coach = dataSnapshot.child("coach").child(UserID).getValue(Coach.class);
-                if (coach.getTrainees() != null) {
+                if (coach.getTrainees().size() > 0) {
+
                     if (!coach.getTrainees().isEmpty()) {
                         listOfTraineesUID = coach.getTrainees();
                         for (String Uid : listOfTraineesUID) {
@@ -161,11 +162,10 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.coach_menu_item_email:
                 inflateEmailDialog();
-                //Toast.makeText(context, "added by email", Toast.LENGTH_SHORT).show();
+
                 floatingActionMenu.close(true);
                 break;
             case R.id.coach_menu_item_mobile:
-                // Toast.makeText(context, "added by phone number", Toast.LENGTH_SHORT).show();
                 inflatePhoneDialog();
                 floatingActionMenu.close(true);
                 break;

@@ -102,6 +102,13 @@ public class afterLoginActivity extends AppCompatActivity {
                         .addToBackStack("this")
                         .commit();
                 break;
+            case R.id.menuBank:
+                CoachBankProgramsFragment bankProgramsFragment = new CoachBankProgramsFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Fragment_container_afterlogin, bankProgramsFragment)
+                        .addToBackStack("this")
+                        .commit();
+                break;
             case R.id.Trainee_setting:
                 SettingFragment settingFragment1 = new SettingFragment();
                 getSupportFragmentManager().beginTransaction()

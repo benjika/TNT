@@ -5,6 +5,10 @@
         android:id="@+id/ShowTrainees"
         android:icon="@drawable/run"
         android:title="Trainees" />
+    <item
+        android:id="@+id/menuBank"
+        android:icon="@drawable/ic_locker"
+        android:title="@string/bank" />
 
     <item
         android:id="@+id/Coach_setting"

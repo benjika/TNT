@@ -1,108 +1,116 @@
 package com.example.luput.tnt;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CoachBankPrograms.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CoachBankPrograms#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CoachBankPrograms extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class CoachBankProgramsFragment extends Fragment {
+    private String email;
 
-    private OnFragmentInteractionListener mListener;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private List<TrainingProgram> programs = new ArrayList<>();
+    private FloatingActionMenu floatingActionMenu;
+    private Context context;
+    Coach coach;
+    Trainee trainee;
+    View view;
+    String traineeId;
+    FloatingActionButton floatingActionButton;
 
-    public CoachBankPrograms() {
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public CoachBankProgramsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CoachBankPrograms.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CoachBankPrograms newInstance(String param1, String param2) {
-        CoachBankPrograms fragment = new CoachBankPrograms();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static CoachBankProgramsFragment newInstance() {
+        return new CoachBankProgramsFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coach_bank_programs, container, false);
-    }
+        view = inflater.inflate(R.layout.fragment_coach_bank_programs, container, false);
+        context = container.getContext();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                coach = dataSnapshot.child("coach").child(firebaseUser.getUid()).getValue(Coach.class);
+                programs = coach.getTrainingProgramBank();
+                final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.coachBankPrograms_recycleView);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+                if (programs == null || programs.size() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    TextView nothigToShow = (TextView) view.findViewById(R.id.coachBankPrograms_nothingToShow);
+                    nothigToShow.setVisibility(View.VISIBLE);
+                } else {
+                    CoachBankProgramsAdapter coachBankProgramsAdapter = new CoachBankProgramsAdapter(programs);
+                    recyclerView.setAdapter(coachBankProgramsAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+                    coachBankProgramsAdapter.setOnItemListener(new CoachBankProgramsAdapter.MyCoachBankProgramsListener() {
+                        @Override
+                        public void onProgramClick(int position, View view) {
+                            FullProgramFragment fullProgramFragment = new FullProgramFragment();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("ProgramToShow", coach.getTrainingProgramBank().get(position));
+                            fullProgramFragment.setArguments(bundle);
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), fullProgramFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    });
+                }
+            }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+            }
+        });
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.coachbankPrograms_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+        return view;
     }
 }
+

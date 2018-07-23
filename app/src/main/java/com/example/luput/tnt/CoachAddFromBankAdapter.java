@@ -56,12 +56,7 @@ public class CoachAddFromBankAdapter extends RecyclerView.Adapter<CoachAddFromBa
                     myAddFromBankListener.onProgramClick(getAdapterPosition(), view);
                 }
             });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    return false;
-                }
-            });
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

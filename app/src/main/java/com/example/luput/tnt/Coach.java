@@ -62,6 +62,7 @@ public class Coach implements Serializable {
     }
 
     public List<String> getTrainees() {
+        if (this.trainees == null) this.trainees = new ArrayList<>();
         return trainees;
     }
 
