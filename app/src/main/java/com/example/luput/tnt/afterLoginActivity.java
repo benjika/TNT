@@ -16,6 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class afterLoginActivity extends AppCompatActivity {
 
@@ -101,6 +107,32 @@ public class afterLoginActivity extends AppCompatActivity {
                         .replace(R.id.Fragment_container_afterlogin, settingFragment)
                         .addToBackStack("this")
                         .commit();
+                break;
+            case R.id.menuBank:
+
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                final String Uid = firebaseUser.getUid();
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Coach coach = dataSnapshot.child("coach").child(Uid).getValue(Coach.class);
+                        CoachBankProgramsFragment bankProgramsFragment = new CoachBankProgramsFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Coach", coach);
+                        bankProgramsFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.Fragment_container_afterlogin, bankProgramsFragment)
+                                .addToBackStack("this")
+                                .commit();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 break;
             case R.id.Trainee_setting:
                 SettingFragment settingFragment1 = new SettingFragment();

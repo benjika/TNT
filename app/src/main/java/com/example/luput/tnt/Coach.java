@@ -62,6 +62,7 @@ public class Coach implements Serializable {
     }
 
     public List<String> getTrainees() {
+        if (this.trainees == null) this.trainees = new ArrayList<>();
         return trainees;
     }
 
@@ -82,8 +83,11 @@ public class Coach implements Serializable {
     }
 
     public List<TrainingProgram> getTrainingProgramBank() {
-        if (this.TrainingProgramBank == null) this.TrainingProgramBank = new ArrayList<>();
-        return TrainingProgramBank;
+        if (this.TrainingProgramBank == null) {
+            this.TrainingProgramBank = new ArrayList<TrainingProgram>();
+            return this.TrainingProgramBank;
+        }
+        return this.TrainingProgramBank;
     }
 
     public void setTrainingProgramBank(List<TrainingProgram> trainingProgramBank) {
@@ -96,7 +100,9 @@ public class Coach implements Serializable {
     }
 
     public void addToBank(TrainingProgram trainingProgram) {
-        if (this.TrainingProgramBank == null) this.TrainingProgramBank = new ArrayList<>();
+        if (this.TrainingProgramBank == null) {
+            this.TrainingProgramBank = new ArrayList<>();
+        }
         this.TrainingProgramBank.add(trainingProgram);
     }
 }

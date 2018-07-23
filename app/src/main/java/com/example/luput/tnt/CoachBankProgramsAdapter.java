@@ -7,28 +7,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoachAddFromBankAdapter extends RecyclerView.Adapter<CoachAddFromBankAdapter.ViewHolder> {
+public class CoachBankProgramsAdapter extends RecyclerView.Adapter<CoachBankProgramsAdapter.ViewHolder> {
+
+    private static final String TAG = "CoachBankProgramsAdap";
+
     private List<TrainingProgram> programs = new ArrayList<>();
     private Context context;
-    private CoachAddFromBankAdapter.MyAddFromBankListener myAddFromBankListener;
-
-    private static final String TAG = "CoachAddFromBankAdapter";
+    private CoachBankProgramsAdapter.MyCoachBankProgramsListener myCoachBankProgramsListener;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
-    public CoachAddFromBankAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CoachBankProgramsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_program_cell, parent, false);
-        CoachAddFromBankAdapter.ViewHolder viewHolder = new CoachAddFromBankAdapter.ViewHolder(view);
+        CoachBankProgramsAdapter.ViewHolder viewHolder = new CoachBankProgramsAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(CoachAddFromBankAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         TrainingProgram trainingProgram = programs.get(position);
         holder.programTitleTV.setText(trainingProgram.getNameOfTheProgram());
@@ -53,33 +57,23 @@ public class CoachAddFromBankAdapter extends RecyclerView.Adapter<CoachAddFromBa
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    myAddFromBankListener.onProgramClick(getAdapterPosition(), view);
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    myAddFromBankListener.onProgramLongClick(getAdapterPosition(), view);
-                    return true;
+                    myCoachBankProgramsListener.onProgramClick(getAdapterPosition(), view);
                 }
             });
 
         }
     }
 
-    interface MyAddFromBankListener {
+    interface MyCoachBankProgramsListener {
         void onProgramClick(int position, View view);
-
-        void onProgramLongClick(int position, View view);
-
     }
 
-    public void setOnitemListener(MyAddFromBankListener listener) {
-        myAddFromBankListener = listener;
+    public void setOnItemListener(CoachBankProgramsAdapter.MyCoachBankProgramsListener listener) {
+        myCoachBankProgramsListener = listener;
     }
 
-    public CoachAddFromBankAdapter(List<TrainingProgram> programsNew) {
+
+    public CoachBankProgramsAdapter(List<TrainingProgram> programsNew) {
         this.programs = programsNew;
     }
 }
