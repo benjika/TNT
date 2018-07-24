@@ -58,7 +58,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramV
 
             ProgramName = (TextView) itemView.findViewById(R.id.training_program_header);
             CurrentProgram = (CheckBox) itemView.findViewById(R.id.current_program);
-
+            CurrentProgram.setClickable(false);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

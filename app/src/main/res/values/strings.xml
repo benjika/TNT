@@ -134,4 +134,8 @@
     <string name="facebook_app_id">655993528067305</string>
     <string name="fb_login_protocol_scheme">fb655993528067305</string>
 
+    <string name="NameOfProgram">Name of program:</string>
+    <string name="daysOfWorkout">Days of workout:</string>
+    <string name="ChooseDaysOfWorkout">Choose days of workout:</string>
+    <string name="remove_trainee_by_email">Remove trainee by email</string>
 </resources>

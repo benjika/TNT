@@ -84,6 +84,18 @@
             fab:menu_showShadow="true">
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/coach_menu_remove_trainee"
+                style="@style/MenuButtonsSmallRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_remove"
+                android:tint="@android:color/white"
+                app:tint="@android:color/white"
+                fab:fab_label="@string/remove_trainee_by_email"
+                fab:fab_size="mini"
+                fab:rippleColor="@android:color/white" />
+
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/coach_menu_item_email"
                 style="@style/MenuButtonsSmallGreen"
                 android:layout_width="wrap_content"
@@ -104,6 +116,7 @@
                 fab:fab_label="@string/use_phone_number"
                 fab:fab_size="mini"
                 fab:rippleColor="@color/colorAccent" />
+
 
         </com.github.clans.fab.FloatingActionMenu>
 

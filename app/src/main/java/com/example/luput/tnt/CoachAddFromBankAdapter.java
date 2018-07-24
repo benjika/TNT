@@ -22,7 +22,7 @@ public class CoachAddFromBankAdapter extends RecyclerView.Adapter<CoachAddFromBa
 
     @Override
     public CoachAddFromBankAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_program_cell, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_program_cell_coach_bank, parent, false);
         CoachAddFromBankAdapter.ViewHolder viewHolder = new CoachAddFromBankAdapter.ViewHolder(view);
         return viewHolder;
     }
@@ -47,7 +47,7 @@ public class CoachAddFromBankAdapter extends RecyclerView.Adapter<CoachAddFromBa
         public ViewHolder(View itemView) {
             super(itemView);
 
-            programTitleTV = (TextView) itemView.findViewById(R.id.trainingProgramBank_header);
+            programTitleTV = (TextView) itemView.findViewById(R.id.trainingBank_program_header);
             parentLayout = (CardView) itemView.findViewById(R.id.programCellBank_Card_LinearLayout);
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -254,7 +254,7 @@ public class CoachFragment extends Fragment implements View.OnClickListener {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot trainee : dataSnapshot.child("trainee").getChildren()) {
                                     Trainee currTraine = trainee.getValue(Trainee.class);
-                                    if (currTraine.getEmailAddress().equals(phoneToAdd)) {
+                                    if (currTraine.getPhoneNumber().equals(phoneToAdd)) {
                                         key = trainee.getKey();
                                         break;
                                     }

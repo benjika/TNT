@@ -29,5 +29,12 @@
         <item name="fab_colorRipple">@color/icons</item>
     </style>
 
+    <style name="MenuButtonsSmallRed">
+        <item name="fab_size">mini</item>
+        <item name="fab_colorNormal">#b50804</item>
+        <item name="fab_colorPressed">#6c1003</item>
+        <item name="fab_colorRipple">@color/icons</item>
+    </style>
+
 
 </resources>

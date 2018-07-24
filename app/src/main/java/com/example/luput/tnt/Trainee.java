@@ -18,6 +18,15 @@ public class Trainee implements Comparable, Serializable {
     private String ImgUri;
     private String PhoneNumber;
 
+    public boolean isHaveCoach() {
+        return HaveCoach;
+    }
+
+    public void setHaveCoach(boolean haveCoach) {
+        HaveCoach = haveCoach;
+    }
+
+    private boolean HaveCoach;
 
     public Trainee() {
     }
@@ -27,6 +36,7 @@ public class Trainee implements Comparable, Serializable {
         LastName = lastName;
         Email = emailAddress;
         Programs = new ArrayList<TrainingProgram>();
+        HaveCoach = false;
     }
 
     public List<TrainingProgram> getPrograms() {
@@ -75,6 +85,7 @@ public class Trainee implements Comparable, Serializable {
     }
 
     public String getPhoneNumber() {
+        if (this.PhoneNumber == null) return "";
         return PhoneNumber;
     }
 

@@ -95,6 +95,16 @@ public class CoachBankProgramsFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AddProgramsToBankFragment addProgramsToBankFragment = new AddProgramsToBankFragment();
+                FragmentManager fragmentManager1 = getFragmentManager();
+                Bundle bundle1 = new Bundle();
+                bundle1.putSerializable("Coach", coach);
+                bundle1.putString("CoachUid", firebaseUser.getUid());
+                addProgramsToBankFragment.setArguments(bundle1);
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(((ViewGroup) getView().getParent()).getId(), addProgramsToBankFragment);
+                fragmentTransaction1.addToBackStack(null);
+                fragmentTransaction1.commit();
 
             }
         });

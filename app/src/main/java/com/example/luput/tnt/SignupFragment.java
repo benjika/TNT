@@ -44,6 +44,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     Utils utils = new Utils();
     private Button imACoach;
     private Button imATrainee;
+    private EditText PhoneNum;//////
+    private EditText rePassword;/////
 
     @Override
     public void onStart() {
@@ -85,6 +87,10 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         imACoach = view.findViewById(R.id.signup_imACoach);
         imATrainee = view.findViewById(R.id.signup_imAtrainee);
+        rePassword = view.findViewById(R.id.signup_reenter_password);
+        PhoneNum = view.findViewById(R.id.signup_phone);
+
+
         imACoach.setOnClickListener(this);
         imATrainee.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
@@ -118,12 +124,22 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             isValid = false;
         }
 
-        if (radioTrainerOrTrainee.getCheckedRadioButtonId() == -1) {
+        if (isCoach == 0) {
+            isValid = false;
+        }
+
+        if(!rePassword.getText().toString().equals(Password.getText().toString())){
+            isValid = false;
+        }
+
+        if(PhoneNum.getText().toString().isEmpty() || PhoneNum.getText().toString() == null ){
             isValid = false;
         }
 
         return isValid;
     }
+
+
 
     private static boolean isEnglishOrHebrew(String s) {
         s.trim();
@@ -169,6 +185,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                                     DB.child(utils.COACH_BRANCH).child(UserID).setValue(coach);
                                     Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                     intent.putExtra("isCoach", true);
+                                    intent.putExtra("Name",etFirstName.getText().toString());
                                     dialog.cancel();
                                     startActivity(intent);
                                     getActivity().finish();
@@ -179,12 +196,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                                     DB.child(utils.TRAINEE_BRANCH).child(UserID).setValue(trainee);
                                     Intent intent = new Intent(getActivity(), afterLoginActivity.class);
                                     intent.putExtra("isCoach", false);
+                                    intent.putExtra("Name",etFirstName.getText().toString());
                                     dialog.cancel();
                                     startActivity(intent);
                                     getActivity().finish();
                                 }
                             } else {
-                                utils.makeSimplePopup("Oops", "Something happend plz try again", getActivity());
+                                utils.makeSimplePopup("Oops", task.getException().getMessage()+"plz try again", getActivity());
                                 dialog.cancel();
                             }
                         }

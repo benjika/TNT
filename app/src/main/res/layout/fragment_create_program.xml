@@ -30,9 +30,12 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name of program:" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/NameOfProgram" />
 
                     <EditText
                         android:id="@+id/createProgram_nameOfProgram"
@@ -47,15 +50,20 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Days of workout:" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/daysOfWorkout" />
 
                     <Button
                         android:id="@+id/createProgram_chooseDaysBTN"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Choose days of workout" />
+                        android:background="@drawable/frame_radio"
+                        android:text="@string/ChooseDaysOfWorkout"
+                        android:textColor="@color/primary_text" />
 
                 </LinearLayout>
             </LinearLayout>

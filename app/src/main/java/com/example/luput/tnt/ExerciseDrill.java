@@ -1,6 +1,8 @@
 package com.example.luput.tnt;
 
-public class ExerciseDrill {
+import java.io.Serializable;
+
+public class ExerciseDrill implements Serializable {
 
     private String NameOfExercise;
     private String LinkToVideo;

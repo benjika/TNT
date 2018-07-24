@@ -102,9 +102,22 @@ public class CoachAddFromBankFragment extends Fragment {
                             List<TrainingProgram> programs = trainee.getPrograms();
                             programs.add(coachProgramsFromBank.get(position));
                             mDatabase.child("trainee").child(traineeId).child("programs").setValue(programs);
+                            trainee.setPrograms(programs);
+
+                            CoachEditProgramFragment coachEditProgramFragment = new CoachEditProgramFragment();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("Trainee", trainee);
+                            bundle.putSerializable("TraineeUid", traineeId);
+                            bundle.putSerializable("Coach", coach);
+                            coachEditProgramFragment.setArguments(bundle);
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), coachEditProgramFragment);
+                            fragmentTransaction.commit();
 
                         }
                     });
+                    alertDialogBuilderUserInput.show();
 
                 }
             });

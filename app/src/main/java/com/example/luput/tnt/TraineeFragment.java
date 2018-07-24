@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +55,6 @@ public class TraineeFragment extends Fragment {
         UserID = user.getUid();
 
 
-
-
         return view;
     }
 
@@ -70,15 +69,15 @@ public class TraineeFragment extends Fragment {
                     }
                 }
                 if (Current_Trainee.getPrograms() != null) {
-                    for(TrainingProgram currentprogram : Current_Trainee.getPrograms()){
-                        if(currentprogram.isCurrentProgram()){
-                            AlarmManager alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
-                            Intent intent = new Intent(context,WorkoutAlarm.class);
+                    for (TrainingProgram currentprogram : Current_Trainee.getPrograms()) {
+                        if (currentprogram.isCurrentProgram()) {
+                            AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+                            Intent intent = new Intent(context, WorkoutAlarm.class);
                             Bundle bundle = new Bundle();
-                            bundle.putSerializable("days",currentprogram.getDaysOfWorkOut());
+                            bundle.putSerializable("days", currentprogram.getDaysOfWorkOut());
                             intent.putExtras(bundle);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
-                            alarmManager.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+                            alarmManager.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
                             break;
                         }
                     }
@@ -89,17 +88,21 @@ public class TraineeFragment extends Fragment {
                         @Override
                         public void onProgramClick(int position, View view) {
                             TrainingProgram ClickedProgram = programs.get(position);
+                            FragmentManager fragmentManager = getFragmentManager();
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("ProgramToShow", ClickedProgram);
                             FullProgramFragment fullProgramFragment = new FullProgramFragment();
                             fullProgramFragment.setArguments(bundle);
-                            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                            fragmentTransaction.add(view.getId(), fullProgramFragment)
-                                    .commit();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(((ViewGroup) getView().getParent()).getId(), fullProgramFragment).addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     });
 
                     Training_programs.setAdapter(programAdapter);
+                    Training_programs.setAdapter(programAdapter);
+                    Training_programs.setLayoutManager(new LinearLayoutManager(context));
+                    programAdapter.notifyDataSetChanged();
                 }
             }
 

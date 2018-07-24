@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="4dp"
     tools:context=".AddProgramsToBankFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/NameOfProgram"
+                        android:textColor="@color/primary_text" />
+
+                    <EditText
+                        android:id="@+id/AddProgramsToBank_nameOfProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/daysOfWorkout"
+                        android:textColor="@color/primary_text" />
+
+                    <Button
+                        android:id="@+id/AddProgramsToBank_chooseDaysBTN"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/frame_radio"
+                        android:text="@string/ChooseDaysOfWorkout"
+                        android:textColor="@color/primary_text" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <iammert.com.expandablelib.ExpandableLayout
+                    android:id="@+id/AddProgramsToBank_expandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:childLayout="@layout/expandable_child"
+                    app:parentLayout="@layout/expandable_parent" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/AddProgramsToBank_finish"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="start"
+            android:layout_margin="10dp"
+            android:layout_marginStart="16dp"
+
+            android:background="@drawable/frame_radio"
+            android:text="add program" />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/AddProgramsToBank_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="6dp"
+        android:src="@drawable/ic_new_program"
+        app:fabSize="normal" />
 
 </FrameLayout>

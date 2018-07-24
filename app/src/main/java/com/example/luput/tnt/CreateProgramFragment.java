@@ -45,8 +45,6 @@ import iammert.com.expandablelib.Section;
  */
 public class CreateProgramFragment extends Fragment implements View.OnClickListener {
     Context context;
-    Spinner spinner1;
-    String[] musclesGroups = {"Chest", "Back", "Biceps", "Triceps", "Legs", "Shoulders", "ABs"};
     FloatingActionButton floatingActionButton;
     private Button daysOfProgramBTN;
     private Button finishBTN;
@@ -55,8 +53,6 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
     String traineeId;
     private List<TrainingProgram> programs = new ArrayList<>();
     TrainingProgram trainingProgramToAdd;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
     private boolean daysWereChosen = false;
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     int musculeGroup;
@@ -78,9 +74,10 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_program, container, false);
+
+
         context = container.getContext();
 
-        //addListenerOnSpinnerItemSelection();
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.createProgram_fab);
         floatingActionButton.setOnClickListener(this);
         daysOfProgramBTN = (Button) view.findViewById(R.id.createProgram_chooseDaysBTN);
@@ -486,6 +483,8 @@ public class CreateProgramFragment extends Fragment implements View.OnClickListe
                 break;
         }
     }
+
+
 
     void initExpandableLayout() {
         expandableLayout.setRenderer(new ExpandableLayout.Renderer<MusculeCategory, ExerciseDrill>() {

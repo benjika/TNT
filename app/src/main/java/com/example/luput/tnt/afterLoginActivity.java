@@ -109,7 +109,6 @@ public class afterLoginActivity extends AppCompatActivity {
                         .commit();
                 break;
             case R.id.menuBank:
-
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 final String Uid = firebaseUser.getUid();
@@ -123,7 +122,7 @@ public class afterLoginActivity extends AppCompatActivity {
                         bankProgramsFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.Fragment_container_afterlogin, bankProgramsFragment)
-                                .addToBackStack("this")
+                                .addToBackStack(null)
                                 .commit();
                     }
 
@@ -151,7 +150,11 @@ public class afterLoginActivity extends AppCompatActivity {
                 Toast.makeText(afterLoginActivity.this, "about our fail", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ShowTrainees:
-                Toast.makeText(afterLoginActivity.this, "open trainees", Toast.LENGTH_SHORT).show();
+                CoachFragment coachFragment = new CoachFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Fragment_container_afterlogin, coachFragment)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.Logout_trainee:
                 FirebaseAuth.getInstance().signOut();
